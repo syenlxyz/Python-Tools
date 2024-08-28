@@ -63,6 +63,7 @@ def print_pdf(file_path):
     app.MenuItemExecute('Quit')
 
 if __name__ == '__main__':
+    print(f'Running {Path(__file__).parent.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
