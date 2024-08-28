@@ -34,7 +34,6 @@ def run():
     if not input_path.is_dir():
         input_path.mkdir()
     
-    file_list = list(input_path.glob('*.doc')) + list(input_path.glob('*.docx'))
     options = {
         'length': 70,
         'spinner': 'classic',
@@ -43,6 +42,7 @@ def run():
         'dual_line': True
     }
     
+    file_list = list(input_path.glob('*.doc')) + list(input_path.glob('*.docx'))
     results = alive_it(
         file_list, 
         len(file_list), 
@@ -79,6 +79,7 @@ def print_word(file_path):
     wrd.Quit(SaveChanges=False)
 
 if __name__ == '__main__':
+    print(f'Running {Path(__file__).parent.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
