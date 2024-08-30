@@ -46,18 +46,18 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Printing Word Document: done'),
+        finalize=lambda bar: bar.text('Printing Word: done'),
         **options
     )
     
     for file_path in results:
-        results.text(f'Printing Word Document: {file_path.name}')
+        results.text(f'Printing Word: {file_path.name}')
         print_word(file_path)
 
 def print_word(file_path):
     wrd = Dispatch('Word.Application')
     wrd.Visible = False
-    wrd.Options.PrintReverse = False
+    wrd.Options.PrintReverse = True
     
     params = {
         'Background': False,
