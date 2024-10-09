@@ -33,7 +33,7 @@ def run():
         results.text(f'Printing Word (Odd Pages Only): {file_path.name}')
         print_word(file_path, WdPrintOutPages['OddPagesOnly'])
     
-    input('Press ENTER to proceed...')
+    input('Press ENTER to proceed . . .')
     results = alive_it(
         file_list, 
         len(file_list), 
