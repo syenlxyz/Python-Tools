@@ -24,6 +24,14 @@ def run():
         'dual_line': True
     }
     
+    target_printer = 'EPSON L3150 Series'
+    SetDefaultPrinter(target_printer)
+    
+    process_list = list(psutil.process_iter())
+    for process in process_list:
+        if process.name() == 'Acrobat.exe':
+            process.terminate()
+    
     file_list = list(input_path.glob('*.pdf'))
     results = alive_it(
         file_list, 
@@ -31,14 +39,6 @@ def run():
         finalize=lambda bar: bar.text('Printing PDF: done'),
         **options
     )
-    
-    process_list = list(psutil.process_iter())
-    for process in process_list:
-        if process.name() == 'Acrobat.exe':
-            process.terminate()
-    
-    target_printer = 'EPSON L3150 Series'
-    SetDefaultPrinter(target_printer)
     
     for file_path in results:
         results.text(f'Printing PDF: {file_path.name}')
