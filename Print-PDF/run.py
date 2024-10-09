@@ -16,7 +16,6 @@ def run():
     if not input_path.is_dir():
         input_path.mkdir()
     
-    file_list = list(input_path.glob('*.pdf'))
     options = {
         'length': 70,
         'spinner': 'classic',
@@ -25,10 +24,11 @@ def run():
         'dual_line': True
     }
     
+    file_list = list(input_path.glob('*.pdf'))
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Printing PDF Document: done'),
+        finalize=lambda bar: bar.text('Printing PDF: done'),
         **options
     )
     
@@ -41,10 +41,10 @@ def run():
     SetDefaultPrinter(target_printer)
     
     for file_path in results:
-        results.text(f'Printing PDF Document: {file_path.name}')
-        print_pdf(file_path)
+        results.text(f'Printing PDF: {file_path.name}')
+        print_pdf(file_path, PageOption['PDAllPages'])
 
-def print_pdf(file_path):
+def print_pdf(file_path, iPageOption):
     app = Dispatch('AcroExch.App')
     app.Hide()
     
@@ -63,7 +63,7 @@ def print_pdf(file_path):
         'bReverse': False,
         'bFarEastFontOpt': False,
         'bEmitHalftones': False,
-        'iPageOption': PageOption['PDAllPages']
+        'iPageOption': iPageOption
     }
     
     avDoc.PrintPagesEx(**params)
