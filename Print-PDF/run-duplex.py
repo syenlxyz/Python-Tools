@@ -17,7 +17,6 @@ def run():
     if not input_path.is_dir():
         input_path.mkdir()
     
-    file_list = list(input_path.glob('*.pdf'))
     options = {
         'length': 70,
         'spinner': 'classic',
@@ -34,10 +33,11 @@ def run():
         if process.name() == 'Acrobat.exe':
             process.terminate()
     
+    file_list = list(input_path.glob('*.pdf'))
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Printing PDF Document (Odd Pages Only): done'),
+        finalize=lambda bar: bar.text('Printing PDF (Odd Pages Only): done'),
         **options
     )
     for file_path in results:
@@ -48,7 +48,7 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Printing PDF Document (Even Pages Only): done'),
+        finalize=lambda bar: bar.text('Printing PDF (Even Pages Only): done'),
         **options
     )
     for file_path in results:
