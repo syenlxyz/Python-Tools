@@ -2,11 +2,10 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from win32com.client import Dispatch
-import pdfkit
+from win32print import SetDefaultPrinter
+import psutil
 
-iPageOption = {
-    'PDBeforeFirstPage': -1,
-    'PDLastPage': -2,
+PageOption = {
     'PDAllPages': -3,
     'PDOddPagesOnly': -4,
     'PDEvenPagesOnly': -5
@@ -14,13 +13,8 @@ iPageOption = {
 
 def run():
     input_path = Path.cwd() / 'input'
-    temp_path = Path.cwd() / 'temp.pdf'
-    
     if not input_path.is_dir():
         input_path.mkdir()
-    
-    if not temp_path.is_file():
-        raise Exception('temp.pdf not found')
     
     file_list = list(input_path.glob('*.pdf'))
     options = {
@@ -38,16 +32,27 @@ def run():
         **options
     )
     
+    process_list = list(psutil.process_iter())
+    for process in process_list:
+        if process.name() == 'Acrobat.exe':
+            process.terminate()
+    
+    target_printer = 'EPSON L3150 Series'
+    SetDefaultPrinter(target_printer)
+    
     for file_path in results:
         results.text(f'Printing PDF Document: {file_path.name}')
-        print_pdf(file_path, temp_path)
+        print_pdf(file_path, PageOption['PDEvenPagesOnly'])
+        import time
+        time.sleep(1)
+        print_pdf(file_path, PageOption['PDOddPagesOnly'])
 
-def print_pdf(file_path, temp_path):
+def print_pdf(file_path, iPageOption):
     app = Dispatch('AcroExch.App')
     app.Hide()
     
     avDoc = Dispatch('AcroExch.AVDoc')
-    avDoc.Open(file_path.as_posix(), '')
+    avDoc.Open(file_path, file_path)
     
     pdDoc = avDoc.GetPDDoc()
     num_page = pdDoc.GetNumPages()
@@ -56,30 +61,23 @@ def print_pdf(file_path, temp_path):
         'nFirstPage': 0,
         'nLastPage': num_page - 1,
         'nPSLevel': 3,
-        'bBinaryOk': 0,
-        'bShrinkToFit': 0,
-        'bReverse': True,
-        'bFarEastFontOpt': 0,
-        'bEmitHalftones': 0,
-        'iPageOption': iPageOption['PDAllPages']
+        'bBinaryOk': False,
+        'bShrinkToFit': True,
+        'bReverse': False,
+        'bFarEastFontOpt': False,
+        'bEmitHalftones': False,
+        'iPageOption': iPageOption
     }
-    
-    params['iPageOption'] = iPageOption['PDOddPagesOnly']
     avDoc.PrintPagesEx(**params)
-    input('Press ENTER to continue...')
-    params['iPageOption'] = iPageOption['PDEvenPagesOnly']
-    avDoc.PrintPagesEx(**params)
+    avDoc.Close(True)
     
-    if num_page % 2:
-        temp = Dispatch('AcroExch.PDDoc')
-        temp.Open(temp_path.as_posix())
-        pdDoc.InsertPages(num_page-1, temp, 0, 1, 0)
-        temp.Close()
-
-    avDoc.Close(1)
-    app.MenuItemExecute('Quit')
+    process_list = list(psutil.process_iter())
+    for process in process_list:
+        if process.name() == 'Acrobat.exe':
+            process.terminate()
 
 if __name__ == '__main__':
+    print(f'Running {Path(__file__).parent.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
