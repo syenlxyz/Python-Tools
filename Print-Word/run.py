@@ -3,26 +3,6 @@ from datetime import datetime
 from pathlib import Path
 from win32com.client import Dispatch
 
-WdPrintOutRange = {
-    'AllDocument': 0,
-    'CurrentPage': 2,
-    'FromTo': 3,
-    'RangeOfPages': 4,
-    'Selection': 1
-}
-
-WdPrintOutItem = {
-    'AutoTextEntries': 4,
-    'Comments': 2,
-    'DocumentContent': 0,
-    'DocumentWithMarkup': 7,
-    'Envelope': 6,
-    'KeyAssignments': 5,
-    'Markup': 2,
-    'Properties': 1,
-    'Styles': 3
-}
-
 WdPrintOutPages = {
     'AllPages': 0,
     'EvenPagesOnly': 2,
@@ -57,16 +37,16 @@ def run():
 def print_word(file_path):
     wrd = Dispatch('Word.Application')
     wrd.Visible = False
-    wrd.Options.PrintReverse = True
+    wrd.Options.PrintReverse = False
     
     params = {
         'Background': False,
         'Append': False,
-        'Range': WdPrintOutRange['AllDocument'],
+        'Range': 0,
         'OutputFileName': '',
         'From': '',
         'To': '',
-        'Item': WdPrintOutItem['DocumentContent'],
+        'Item': 0,
         'Copies': 1,
         'Pages': '',
         'PageType': WdPrintOutPages['AllPages'],
@@ -74,7 +54,7 @@ def print_word(file_path):
         'Collate': True
     }
     
-    wrd.Documents.Open(file_path.as_posix(), ReadOnly=True)
+    wrd.Documents.Open(str(file_path))
     wrd.PrintOut(**params)
     wrd.Quit(SaveChanges=False)
 
