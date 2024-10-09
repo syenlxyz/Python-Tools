@@ -37,6 +37,17 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
+        finalize=lambda bar: bar.text('Printing PDF Document (Odd Pages Only): done'),
+        **options
+    )
+    for file_path in results:
+        results.text(f'Printing PDF Document (Odd Pages Only): {file_path.name}')
+        print_pdf(file_path, PageOption['PDOddPagesOnly'])
+
+    input('Press ENTER to proceed...')
+    results = alive_it(
+        file_list, 
+        len(file_list), 
         finalize=lambda bar: bar.text('Printing PDF Document (Even Pages Only): done'),
         **options
     )
@@ -58,16 +69,6 @@ def run():
         else:
             print_pdf(file_path, PageOption['PDEvenPagesOnly'])
     
-    input('Press ENTER to continue...')
-    results = alive_it(
-        file_list, 
-        len(file_list), 
-        finalize=lambda bar: bar.text('Printing PDF Document (Odd Pages Only): done'),
-        **options
-    )
-    for file_path in results:
-        results.text(f'Printing PDF Document (Odd Pages Only): {file_path.name}')
-        print_pdf(file_path, PageOption['PDOddPagesOnly'])
 
 def print_pdf(file_path, iPageOption):
     app = Dispatch('AcroExch.App')
