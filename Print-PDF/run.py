@@ -60,7 +60,7 @@ def print_pdf(file_path):
         'nPSLevel': 3,
         'bBinaryOk': False,
         'bShrinkToFit': True,
-        'bReverse': True,
+        'bReverse': False,
         'bFarEastFontOpt': False,
         'bEmitHalftones': False,
         'iPageOption': PageOption['PDAllPages']
