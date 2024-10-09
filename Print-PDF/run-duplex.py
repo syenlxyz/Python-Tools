@@ -7,8 +7,8 @@ import psutil
 
 PageOption = {
     'PDAllPages': -3,
-    'PDOddPagesOnly': -4,
-    'PDEvenPagesOnly': -5
+    'PDEvenPagesOnly': -4,
+    'PDOddPagesOnly': -5
 }
 
 def run():
@@ -63,7 +63,7 @@ def print_pdf(file_path, iPageOption):
         'nPSLevel': 3,
         'bBinaryOk': False,
         'bShrinkToFit': True,
-        'bReverse': False,
+        'bReverse': True,
         'bFarEastFontOpt': False,
         'bEmitHalftones': False,
         'iPageOption': iPageOption
