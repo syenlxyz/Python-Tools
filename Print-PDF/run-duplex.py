@@ -44,7 +44,7 @@ def run():
         results.text(f'Printing PDF Document (Odd Pages Only): {file_path.name}')
         print_pdf(file_path, PageOption['PDOddPagesOnly'])
 
-    input('Press ENTER to proceed...')
+    input('Press ENTER to proceed . . .')
     results = alive_it(
         file_list, 
         len(file_list), 
