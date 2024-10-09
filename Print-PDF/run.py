@@ -2,7 +2,7 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from win32com.client import Dispatch
-from win32print import GetDefaultPrinter, SetDefaultPrinter
+from win32print import SetDefaultPrinter
 import psutil
 
 iPageOption = {
@@ -37,10 +37,8 @@ def run():
         if process.name() == 'Acrobat.exe':
             process.terminate()
     
-    original_printer = GetDefaultPrinter()
     target_printer = 'EPSON L3150 Series'
-    if original_printer != target_printer:
-        SetDefaultPrinter(target_printer)
+    SetDefaultPrinter(target_printer)
     
     for file_path in results:
         results.text(f'Printing PDF Document: {file_path.name}')
