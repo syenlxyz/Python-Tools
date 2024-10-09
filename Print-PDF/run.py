@@ -5,7 +5,7 @@ from win32com.client import Dispatch
 from win32print import SetDefaultPrinter
 import psutil
 
-iPageOption = {
+PageOption = {
     'PDAllPages': -3,
     'PDOddPagesOnly': -4,
     'PDEvenPagesOnly': -5
@@ -60,10 +60,10 @@ def print_pdf(file_path):
         'nPSLevel': 3,
         'bBinaryOk': False,
         'bShrinkToFit': True,
-        'bReverse': False,
+        'bReverse': True,
         'bFarEastFontOpt': False,
         'bEmitHalftones': False,
-        'iPageOption': iPageOption['PDAllPages']
+        'iPageOption': PageOption['PDAllPages']
     }
     
     avDoc.PrintPagesEx(**params)
