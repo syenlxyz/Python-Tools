@@ -2,10 +2,10 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from win32com.client import Dispatch
+from win32print import GetDefaultPrinter, SetDefaultPrinter
+import psutil
 
 iPageOption = {
-    'PDBeforeFirstPage': -1,
-    'PDLastPage': -2,
     'PDAllPages': -3,
     'PDOddPagesOnly': -4,
     'PDEvenPagesOnly': -5
@@ -32,6 +32,16 @@ def run():
         **options
     )
     
+    process_list = list(psutil.process_iter())
+    for process in process_list:
+        if process.name() == 'Acrobat.exe':
+            process.terminate()
+    
+    original_printer = GetDefaultPrinter()
+    target_printer = 'EPSON L3150 Series'
+    if original_printer != target_printer:
+        SetDefaultPrinter(target_printer)
+    
     for file_path in results:
         results.text(f'Printing PDF Document: {file_path.name}')
         print_pdf(file_path)
@@ -41,7 +51,7 @@ def print_pdf(file_path):
     app.Hide()
     
     avDoc = Dispatch('AcroExch.AVDoc')
-    avDoc.Open(file_path.as_posix(), '')
+    avDoc.Open(file_path, file_path)
     
     pdDoc = avDoc.GetPDDoc()
     num_page = pdDoc.GetNumPages()
@@ -50,17 +60,21 @@ def print_pdf(file_path):
         'nFirstPage': 0,
         'nLastPage': num_page - 1,
         'nPSLevel': 3,
-        'bBinaryOk': 0,
-        'bShrinkToFit': 0,
+        'bBinaryOk': False,
+        'bShrinkToFit': True,
         'bReverse': False,
-        'bFarEastFontOpt': 0,
-        'bEmitHalftones': 0,
+        'bFarEastFontOpt': False,
+        'bEmitHalftones': False,
         'iPageOption': iPageOption['PDAllPages']
     }
     
     avDoc.PrintPagesEx(**params)
     avDoc.Close(True)
-    app.MenuItemExecute('Quit')
+    
+    process_list = list(psutil.process_iter())
+    for process in process_list:
+        if process.name() == 'Acrobat.exe':
+            process.terminate()
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
