@@ -66,6 +66,7 @@ def print_word(file_path, PageType):
         wrd.Selection.InsertNewPage()
     
     wrd.PrintOut(**params)
+    wrd.Options.PrintReverse = False
     wrd.Quit(SaveChanges=False)
 
 if __name__ == '__main__':
