@@ -2,6 +2,7 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from win32com.client import Dispatch
+import shutil
 
 def run():
     input_path = Path.cwd() / 'input'
@@ -12,9 +13,8 @@ def run():
     if not output_path.is_dir():
         output_path.mkdir()
     else:
-        file_list = list(output_path.iterdir())
-        for file_path in file_list:
-            file_path.unlink()
+        shutil.rmtree(str(output_path))
+        output_path.mkdir()
     
     options = {
         'length': 70,
@@ -37,17 +37,15 @@ def run():
         **options
     )
     
-    for file_path in results:
-        results.text(f'Converting Word to PDF: {file_path.name}')
-        word_to_pdf(file_path, output_path)
-
-def word_to_pdf(file_path, output_path):
     wrd = Dispatch('Word.Application')
     wrd.Visible = False
-    pdf_path = output_path / file_path.with_suffix('.pdf').name
-    doc = wrd.Documents.Open(str(file_path))
-    doc.SaveAs(str(pdf_path), FileFormat=17)
-    wrd.Quit(SaveChanges=False)
+    for file_path in results:
+        results.text(f'Converting Word to PDF: {file_path.name}')
+        wrd.Documents.Open(str(file_path))
+        pdf_path = output_path / file_path.with_suffix('.pdf').name
+        wrd.ActiveDocument.SaveAs2(str(pdf_path), FileFormat=17)
+        wrd.ActiveDocument.Close(SaveChanges=False)
+    wrd.Quit()
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
