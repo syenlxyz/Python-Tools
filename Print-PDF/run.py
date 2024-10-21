@@ -5,7 +5,7 @@ from win32com.client import Dispatch
 from win32print import SetDefaultPrinter
 import psutil
 
-PageOption = {
+iPageOption = {
     'PDAllPages': -3,
     'PDOddPagesOnly': -4,
     'PDEvenPagesOnly': -5
@@ -27,11 +27,6 @@ def run():
     target_printer = 'EPSON L3150 Series'
     SetDefaultPrinter(target_printer)
     
-    process_list = list(psutil.process_iter())
-    for process in process_list:
-        if process.name() == 'Acrobat.exe':
-            process.terminate()
-    
     file_list = list(input_path.glob('*.pdf'))
     results = alive_it(
         file_list, 
@@ -40,34 +35,32 @@ def run():
         **options
     )
     
-    for file_path in results:
-        results.text(f'Printing PDF: {file_path.name}')
-        print_pdf(file_path, PageOption['PDAllPages'])
-
-def print_pdf(file_path, iPageOption):
+    process_list = list(psutil.process_iter())
+    for process in process_list:
+        if process.name() == 'Acrobat.exe':
+            process.terminate()
+    
     app = Dispatch('AcroExch.App')
     app.Hide()
-    
     avDoc = Dispatch('AcroExch.AVDoc')
-    avDoc.Open(file_path, file_path)
-    
-    pdDoc = avDoc.GetPDDoc()
-    num_page = pdDoc.GetNumPages()
-    
-    params = {
-        'nFirstPage': 0,
-        'nLastPage': num_page - 1,
-        'nPSLevel': 3,
-        'bBinaryOk': False,
-        'bShrinkToFit': True,
-        'bReverse': False,
-        'bFarEastFontOpt': False,
-        'bEmitHalftones': False,
-        'iPageOption': iPageOption
-    }
-    
-    avDoc.PrintPagesEx(**params)
-    avDoc.Close(True)
+    for file_path in results:
+        results.text(f'Printing PDF: {file_path.name}')
+        avDoc.Open(file_path, file_path)
+        pdDoc = avDoc.GetPDDoc()
+        num_page = pdDoc.GetNumPages()
+        params = {
+            'nFirstPage': 0,
+            'nLastPage': num_page - 1,
+            'nPSLevel': 3,
+            'bBinaryOk': False,
+            'bShrinkToFit': True,
+            'bReverse': False,
+            'bFarEastFontOpt': False,
+            'bEmitHalftones': False,
+            'iPageOption': iPageOption['PDAllPages']
+        }
+        avDoc.PrintPagesEx(**params)
+        avDoc.Close(True)
     
     process_list = list(psutil.process_iter())
     for process in process_list:
