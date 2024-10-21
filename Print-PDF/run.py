@@ -27,7 +27,7 @@ def run():
     target_printer = 'EPSON L3150 Series'
     SetDefaultPrinter(target_printer)
     
-    file_list = list(input_path.glob('*.pdf'))
+    file_list = list(input_path.glob('**/*.pdf'))
     results = alive_it(
         file_list, 
         len(file_list), 
