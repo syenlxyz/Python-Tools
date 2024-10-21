@@ -24,7 +24,12 @@ def run():
         'dual_line': True
     }
     
-    file_list = list(input_path.glob('*.doc')) + list(input_path.glob('*.docx'))
+    file_list = []
+    path_list = list(input_path.glob('**/*'))
+    for path in path_list:
+        if path.suffix in ['.doc', '.docx']:
+            file_list.append(path)
+    
     results = alive_it(
         file_list, 
         len(file_list), 
