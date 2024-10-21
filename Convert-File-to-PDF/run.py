@@ -26,10 +26,10 @@ def run():
     }
     
     file_list = []
-    ext_list = ['html', 'htm', 'jpg', 'jpeg', 'xls', 'xlsx', 'ppt', 'pptx', 'doc', 'docx', 'png', 'txt']
-    for ext in ext_list:
-        item = list(input_path.glob(f'*.{ext}'))
-        file_list.extend(item)
+    path_list = list(input_path.glob('**/*'))
+    for path in path_list:
+        if path.suffix in ['html', 'htm', 'jpg', 'jpeg', 'xls', 'xlsx', 'ppt', 'pptx', 'doc', 'docx', 'png', 'txt']:
+            file_list.append(path)
     
     results = alive_it(
         file_list, 
