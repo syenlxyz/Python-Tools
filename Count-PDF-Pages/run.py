@@ -7,15 +7,11 @@ def run():
     if not input_path.is_dir():
         input_path.mkdir()
     
-    file_list = list(input_path.glob('*.pdf'))
+    file_list = list(input_path.glob('**/*.pdf'))
     for file_path in file_list:
-        num_page = get_num_page(file_path)
+        reader = PdfReader(file_path)
+        num_page = reader.get_num_pages()
         print(f'{file_path.name}: {num_page}')
-
-def get_num_page(file_path):
-    reader = PdfReader(file_path)
-    num_page = reader.get_num_pages()
-    return num_page
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
