@@ -62,7 +62,7 @@ def run():
         num_page = pdDoc.GetNumPages()
         params['nLastPage'] = num_page - 1
         avDoc.PrintPagesEx(**params)
-        avDoc.Close(True)
+        avDoc.Close(bNoSave=True)
     
     process_list = list(psutil.process_iter())
     for process in process_list:
