@@ -39,7 +39,7 @@ def run():
     )
     
     for file_path in results:
-        results.text(f'Converting File to PDF: {file_path.name}')
+        results.text(f'Converting Web to PDF: {file_path.name}')
         file_to_pdf(file_path, output_path)
 
 def file_to_pdf(file_path, output_path):
