@@ -40,6 +40,18 @@ def run():
         if process.name() == 'Acrobat.exe':
             process.terminate()
     
+    params = {
+        'nFirstPage': 0,
+        'nLastPage': None,
+        'nPSLevel': 3,
+        'bBinaryOk': False,
+        'bShrinkToFit': True,
+        'bReverse': False,
+        'bFarEastFontOpt': False,
+        'bEmitHalftones': False,
+        'iPageOption': iPageOption['PDAllPages']
+    }
+    
     app = Dispatch('AcroExch.App')
     app.Hide()
     avDoc = Dispatch('AcroExch.AVDoc')
@@ -48,17 +60,7 @@ def run():
         avDoc.Open(file_path, file_path)
         pdDoc = avDoc.GetPDDoc()
         num_page = pdDoc.GetNumPages()
-        params = {
-            'nFirstPage': 0,
-            'nLastPage': num_page - 1,
-            'nPSLevel': 3,
-            'bBinaryOk': False,
-            'bShrinkToFit': True,
-            'bReverse': False,
-            'bFarEastFontOpt': False,
-            'bEmitHalftones': False,
-            'iPageOption': iPageOption['PDAllPages']
-        }
+        params['nLastPage'] = num_page - 1
         avDoc.PrintPagesEx(**params)
         avDoc.Close(True)
     
