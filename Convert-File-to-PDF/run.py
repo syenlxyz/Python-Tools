@@ -28,13 +28,13 @@ def run():
     file_list = []
     path_list = list(input_path.glob('**/*'))
     for path in path_list:
-        if path.suffix in ['html', 'htm', 'jpg', 'jpeg', 'xls', 'xlsx', 'ppt', 'pptx', 'doc', 'docx', 'png', 'txt']:
+        if path.suffix in ['html', 'htm']:
             file_list.append(path)
     
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Converting File to PDF: done'),
+        finalize=lambda bar: bar.text('Converting Web to PDF: done'),
         **options
     )
     
