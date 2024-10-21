@@ -1,6 +1,6 @@
 from datetime import datetime
 from pathlib import Path
-from spire.doc import Document
+from win32com.client import Dispatch
 
 def run():
     input_path = Path.cwd() / 'input'
@@ -13,14 +13,17 @@ def run():
         if path.suffix in ['.doc', '.docx']:
             file_list.append(path)
     
+    wrd = Dispatch('Word.Application')
+    wrd.Visible = False
     for file_path in file_list:
-        num_page = get_num_page(file_path)
+        num_page = get_num_page(wrd, file_path)
         print(f'{file_path.name}: {num_page}')
+    wrd.Quit()
 
-def get_num_page(file_path):
-    doc = Document(str(file_path))
-    properties = doc.BuiltinDocumentProperties
-    num_page = properties.PageCount
+def get_num_page(wrd, file_path):
+    wrd.Documents.Open(str(file_path))
+    num_page = wrd.ActiveDocument.ComputeStatistics(Statistic=2)
+    wrd.ActiveDocument.Close(SaveChanges=False)
     return num_page
 
 if __name__ == '__main__':
@@ -30,3 +33,7 @@ if __name__ == '__main__':
     end_time = datetime.now()
     run_time = end_time - start_time
     print(f'Execution time: {run_time}')
+
+
+
+    
