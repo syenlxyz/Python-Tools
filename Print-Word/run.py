@@ -26,22 +26,18 @@ def run():
     target_printer = 'EPSON L3150 Series'
     SetDefaultPrinter(target_printer)
     
-    file_list = list(input_path.glob('*.doc')) + list(input_path.glob('*.docx'))
+    file_list = []
+    path_list = list(input_path.glob('**/*'))
+    for path in path_list:
+        if path.suffix in ['.doc', '.docx']:
+            file_list.append(path)
+    
     results = alive_it(
         file_list, 
         len(file_list), 
         finalize=lambda bar: bar.text('Printing Word: done'),
         **options
     )
-    
-    for file_path in results:
-        results.text(f'Printing Word: {file_path.name}')
-        print_word(file_path)
-
-def print_word(file_path):
-    wrd = Dispatch('Word.Application')
-    wrd.Visible = False
-    wrd.Options.PrintReverse = False
     
     params = {
         'Background': False,
@@ -58,9 +54,15 @@ def print_word(file_path):
         'Collate': True
     }
     
-    wrd.Documents.Open(str(file_path))
-    wrd.PrintOut(**params)
-    wrd.Quit(SaveChanges=False)
+    wrd = Dispatch('Word.Application')
+    wrd.Visible = False
+    wrd.Options.PrintReverse = False
+    for file_path in results:
+        results.text(f'Printing Word: {file_path.name}')
+        wrd.Documents.Open(str(file_path))
+        wrd.ActiveDocument.PrintOut(**params)
+        wrd.ActiveDocument.Close(SaveChanges=False)
+    wrd.Quit()
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
