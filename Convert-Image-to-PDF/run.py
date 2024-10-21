@@ -26,10 +26,10 @@ def run():
     }
     
     file_list = []
-    ext_list = ['jpg', 'jpeg', 'png']
-    for ext in ext_list:
-        item = list(input_path.glob(f'*.{ext}'))
-        file_list.extend(item)
+    path_list = list(input_path.glob('**/*'))
+    for path in path_list:
+        if path.suffix in ['jpg', 'jpeg', 'png']:
+            file_list.append(path)
     
     results = alive_it(
         file_list, 
