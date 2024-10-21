@@ -69,13 +69,13 @@ def run():
             avDoc.Open(temp_path, temp_path)
             params['nLastPage'] = num_page
             avDoc.PrintPagesEx(**params)
-            avDoc.Close(True)
+            avDoc.Close(bNoSave=True)
             temp_path.unlink()
         else:
             avDoc.Open(file_path, file_path)
             params['nLastPage'] = num_page - 1
             avDoc.PrintPagesEx(**params)
-            avDoc.Close(True)
+            avDoc.Close(bNoSave=True)
     
     process_list = list(psutil.process_iter())
     for process in process_list:
