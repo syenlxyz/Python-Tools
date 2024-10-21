@@ -3,6 +3,7 @@ from datetime import datetime
 from pathlib import Path
 from win32com.client import Dispatch
 import psutil
+import shutil
 
 def run():
     input_path = Path.cwd() / 'input'
@@ -13,9 +14,8 @@ def run():
     if not output_path.is_dir():
         output_path.mkdir()
     else:
-        file_list = list(output_path.iterdir())
-        for file_path in file_list:
-            file_path.unlink()
+        shutil.rmtree(str(output_path))
+        output_path.mkdir()
     
     options = {
         'length': 70,
@@ -35,25 +35,25 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Converting Web to PDF: done'),
+        finalize=lambda bar: bar.text('Converting File to PDF: done'),
         **options
     )
     
-    for file_path in results:
-        results.text(f'Converting Web to PDF: {file_path.name}')
-        file_to_pdf(file_path, output_path)
-
-def file_to_pdf(file_path, output_path):
+    process_list = list(psutil.process_iter())
+    for process in process_list:
+        if process.name() == 'Acrobat.exe':
+            process.terminate()
+    
     app = Dispatch('AcroExch.App')
     app.Hide()
-    
     avDoc = Dispatch('AcroExch.AVDoc')
-    avDoc.Open(file_path, file_path)
-    pdDoc = avDoc.GetPDDoc()
-    
-    pdf_path = output_path / file_path.with_suffix('.pdf').name
-    pdDoc.Save(1, pdf_path)
-    avDoc.Close(True)
+    for file_path in results:
+        results.text(f'Converting File to PDF: {file_path.name}')
+        avDoc.Open(file_path, file_path)
+        pdDoc = avDoc.GetPDDoc()
+        pdf_path = output_path / file_path.with_suffix('.pdf').name
+        pdDoc.Save(1, pdf_path)
+        avDoc.Close(True)
     
     process_list = list(psutil.process_iter())
     for process in process_list:
