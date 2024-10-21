@@ -52,8 +52,8 @@ def run():
         avDoc.Open(file_path, file_path)
         pdDoc = avDoc.GetPDDoc()
         pdf_path = output_path / file_path.with_suffix('.pdf').name
-        pdDoc.Save(1, pdf_path)
-        avDoc.Close(True)
+        pdDoc.Save(nType=1, szFullPath=pdf_path)
+        avDoc.Close(bNoSave=True)
     
     process_list = list(psutil.process_iter())
     for process in process_list:
