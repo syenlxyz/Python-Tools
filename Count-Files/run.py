@@ -6,16 +6,16 @@ def run():
     if not input_path.is_dir():
         input_path.mkdir()
     
-    file_count = 0
-    folder_count = 0
+    num_file = 0
+    num_folder = 0
     file_list = list(input_path.glob('**/*'))
     for file_path in file_list:
         if file_path.is_file():
-            file_count += 1
+            num_file += 1
         if file_path.is_dir():
-            folder_count += 1
-    print(f'File Count: {file_count}')
-    print(f'Folder Count: {folder_count}')
+            num_folder += 1
+    print(f'Files: {num_file}')
+    print(f'Folders: {num_folder}')
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
