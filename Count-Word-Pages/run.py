@@ -1,6 +1,6 @@
 from datetime import datetime
-from docx import Document
 from pathlib import Path
+from spire.doc import Document
 
 def run():
     input_path = Path.cwd() / 'input'
@@ -15,19 +15,15 @@ def run():
         'dual_line': True
     }
     
-    file_list = list(input_path.glob('*.docx'))
+    file_list = list(input_path.glob('*.doc')) + list(input_path.glob('*.docx'))
     for file_path in file_list:
         num_page = get_num_page(file_path)
         print(f'{file_path.name}: {num_page}')
 
 def get_num_page(file_path):
-    document  = Document(file_path)
-    paragraphs = list(document.paragraphs)
-    results = []
-    for paragraph in paragraphs:
-        result = paragraph.contains_page_break
-        results.append(result)
-    num_page = sum(results) + 1
+    doc = Document(str(file_path))
+    properties = doc.BuiltinDocumentProperties
+    num_page = properties.PageCount
     return num_page
 
 if __name__ == '__main__':
