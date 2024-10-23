@@ -23,14 +23,12 @@ def run():
     suffix_list = []
     for file_path in file_list:
         suffix = file_path.suffix
+        target_folder = output_path / suffix[1:]
         if suffix not in suffix_list:
-            # mkdir
-            # copy file
-            # append list
-            pass
-        else:
-            # copy file
-            pass
+            target_folder.mkdir()
+            suffix_list.append(suffix)
+        target_path = target_folder / file_path.name
+        shutil.copy2(str(file_path), str(target_path))
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
