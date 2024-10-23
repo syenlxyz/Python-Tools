@@ -12,10 +12,10 @@ def run():
     
     output_path = Path.cwd() / 'output'
     if not output_path.is_dir():
-        output_path.mkdir()
+        shutil.copytree(str(input_path), str(output_path))
     else:
         shutil.rmtree(str(output_path))
-        output_path.mkdir()
+        shutil.copytree(str(input_path), str(output_path))
     
     options = {
         'length': 70,
@@ -26,7 +26,7 @@ def run():
     }
     
     file_list = []
-    path_list = list(input_path.glob('**/*'))
+    path_list = list(output_path.glob('**/*'))
     suffix_list = ['.html', '.htm', '.jpg', '.jpeg', '.xls', '.xlsx', '.ppt', '.pptx', '.doc', '.docx', '.png', '.txt']
     for path in path_list:
         if path.suffix in suffix_list:
@@ -51,9 +51,10 @@ def run():
         results.text(f'Converting File to PDF: {file_path.name}')
         avDoc.Open(file_path, file_path)
         pdDoc = avDoc.GetPDDoc()
-        pdf_path = output_path / file_path.with_suffix('.pdf').name
+        pdf_path = file_path.with_suffix('.pdf')
         pdDoc.Save(1, pdf_path)
         avDoc.Close(bNoSave=True)
+        file_path.unlink()
     
     process_list = list(psutil.process_iter())
     for process in process_list:
