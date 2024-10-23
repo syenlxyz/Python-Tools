@@ -19,7 +19,7 @@ def run():
         wrd.Documents.Open(str(file_path))
         num_page = wrd.ActiveDocument.ComputeStatistics(Statistic=2)
         wrd.ActiveDocument.Close(SaveChanges=False)
-        print(f'{file_path.name}: {num_page}')
+        print(f'{file_path.relative_to(input_path)}: {num_page}')
     wrd.Quit()
 
 if __name__ == '__main__':
