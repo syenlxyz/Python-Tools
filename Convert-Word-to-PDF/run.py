@@ -11,10 +11,10 @@ def run():
     
     output_path = Path.cwd() / 'output'
     if not output_path.is_dir():
-        output_path.mkdir()
+        shutil.copytree(str(input_path), str(output_path))
     else:
         shutil.rmtree(str(output_path))
-        output_path.mkdir()
+        shutil.copytree(str(input_path), str(output_path))
     
     options = {
         'length': 70,
@@ -25,7 +25,7 @@ def run():
     }
     
     file_list = []
-    path_list = list(input_path.glob('**/*'))
+    path_list = list(output_path.glob('**/*'))
     for path in path_list:
         if path.suffix in ['.doc', '.docx']:
             file_list.append(path)
@@ -42,9 +42,10 @@ def run():
     for file_path in results:
         results.text(f'Converting Word to PDF: {file_path.name}')
         wrd.Documents.Open(str(file_path))
-        pdf_path = output_path / file_path.with_suffix('.pdf').name
+        pdf_path = file_path.with_suffix('.pdf')
         wrd.ActiveDocument.SaveAs2(str(pdf_path), FileFormat=17)
         wrd.ActiveDocument.Close(SaveChanges=False)
+        file_path.unlink()
     wrd.Quit()
 
 if __name__ == '__main__':
