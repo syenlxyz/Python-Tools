@@ -11,7 +11,7 @@ def run():
     for file_path in file_list:
         reader = PdfReader(file_path)
         num_page = reader.get_num_pages()
-        print(f'{file_path.name}: {num_page}')
+        print(f'{file_path.relative_to(input_path)}: {num_page}')
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
