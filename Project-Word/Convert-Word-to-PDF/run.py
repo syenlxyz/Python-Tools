@@ -42,8 +42,8 @@ def run():
     for file_path in results:
         results.text(f'Converting Word to PDF: {file_path.name}')
         wrd.Documents.Open(str(file_path))
-        pdf_path = file_path.with_suffix('.pdf')
-        wrd.ActiveDocument.SaveAs2(str(pdf_path), FileFormat=17)
+        target_path = file_path.with_suffix('.pdf')
+        wrd.ActiveDocument.SaveAs2(str(target_path), FileFormat=17)
         wrd.ActiveDocument.Close(SaveChanges=False)
         file_path.unlink()
     wrd.Quit()
