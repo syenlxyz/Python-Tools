@@ -13,6 +13,8 @@ def run():
     else:
         shutil.rmtree(str(output_path))
         output_path.mkdir()
+    
+    
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
