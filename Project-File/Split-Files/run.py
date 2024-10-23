@@ -14,7 +14,23 @@ def run():
         shutil.rmtree(str(output_path))
         output_path.mkdir()
     
+    file_list = []
+    path_list = list(input_path.glob('**/*'))
+    for path in path_list:
+        if path.is_file():
+            file_list.append(path)
     
+    suffix_list = []
+    for file_path in file_list:
+        suffix = file_path.suffix
+        if suffix not in suffix_list:
+            # mkdir
+            # copy file
+            # append list
+            pass
+        else:
+            # copy file
+            pass
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
