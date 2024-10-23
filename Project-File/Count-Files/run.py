@@ -6,16 +6,30 @@ def run():
     if not input_path.is_dir():
         input_path.mkdir()
     
-    num_file = 0
-    num_folder = 0
-    file_list = list(input_path.glob('**/*'))
+    file_list = []
+    folder_list = []
+    path_list = list(input_path.glob('**/*'))
+    for path in path_list:
+        if path.is_file():
+            file_list.append(path)
+        if path.is_dir():
+            folder_list.append(path)
+    
+    suffix_dict = {}
     for file_path in file_list:
-        if file_path.is_file():
-            num_file += 1
-        if file_path.is_dir():
-            num_folder += 1
-    print(f'Files: {num_file}')
-    print(f'Folders: {num_folder}')
+        suffix = file_path.suffix
+        suffix_list = list(suffix_dict.keys())
+        if suffix not in suffix_list:
+            suffix_dict[suffix] = 1
+        else:
+            suffix_dict[suffix] += 1
+    
+    print(f'Files: {len(file_list)}')
+    print(f'Folders: {len(folder_list)}')
+    suffix_list = list(suffix_dict.keys())
+    for suffix in suffix_list:
+        print(f'{suffix}: {suffix_dict[suffix]}')
+    print(f'Total number of extensions: {len(suffix_list)}')
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
