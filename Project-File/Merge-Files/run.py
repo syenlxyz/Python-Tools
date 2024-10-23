@@ -1,3 +1,4 @@
+from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 import shutil
@@ -13,6 +14,32 @@ def run():
     else:
         shutil.rmtree(str(output_path))
         output_path.mkdir()
+    
+    file_list = []
+    path_list = list(input_path.glob('**/*'))
+    for path in path_list:
+        if path.is_file():
+            file_list.append(path)
+    
+    options = {
+        'length': 70,
+        'spinner': 'classic',
+        'bar': 'classic2',
+        'receipt_text': True,
+        'dual_line': True
+    }
+    
+    results = alive_it(
+        file_list, 
+        len(file_list), 
+        finalize=lambda bar: bar.text('Copying File: done'),
+        **options
+    )
+    
+    for file_path in results:
+        results.text(f'Copying File: {file_path.name}')
+        target_path = output_path / file_path.name
+        shutil.copy2(str(file_path), str(target_path))
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
