@@ -27,9 +27,9 @@ def run():
     print(f'Files: {len(file_list)}')
     print(f'Folders: {len(folder_list)}')
     suffix_list = list(suffix_dict.keys())
+    print(f'Extensions: {len(suffix_list)}')
     for suffix in suffix_list:
         print(f'{suffix}: {suffix_dict[suffix]}')
-    print(f'Total number of extensions: {len(suffix_list)}')
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
