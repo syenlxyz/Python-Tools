@@ -51,8 +51,8 @@ def run():
         results.text(f'Converting File to PDF: {file_path.name}')
         avDoc.Open(file_path, file_path)
         pdDoc = avDoc.GetPDDoc()
-        pdf_path = file_path.with_suffix('.pdf')
-        pdDoc.Save(1, pdf_path)
+        target_path = file_path.with_suffix('.pdf')
+        pdDoc.Save(1, target_path)
         avDoc.Close(bNoSave=True)
         file_path.unlink()
     
