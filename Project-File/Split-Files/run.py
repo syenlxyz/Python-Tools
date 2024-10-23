@@ -1,3 +1,4 @@
+from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 import shutil
@@ -20,8 +21,23 @@ def run():
         if path.is_file():
             file_list.append(path)
     
+    options = {
+        'length': 70,
+        'spinner': 'classic',
+        'bar': 'classic2',
+        'receipt_text': True,
+        'dual_line': True
+    }
+    
+    results = alive_it(
+        file_list, 
+        len(file_list), 
+        finalize=lambda bar: bar.text('Copying File: done'),
+        **options
+    )
+    
     suffix_list = []
-    for file_path in file_list:
+    for file_path in results:
         suffix = file_path.suffix
         target_folder = output_path / suffix[1:]
         if suffix not in suffix_list:
