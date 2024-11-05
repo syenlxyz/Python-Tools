@@ -52,8 +52,7 @@ def run():
     
     default_printer = GetDefaultPrinter()
     handle = OpenPrinter(default_printer)
-    level = 2
-    printer_info = GetPrinter(handle, level)
+    printer_info = GetPrinter(handle, 2)
     printer_info['pDevMode'].Duplex = 1
     
     app = Dispatch('AcroExch.App')
