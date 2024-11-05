@@ -2,7 +2,6 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from win32com.client import Dispatch
-from win32print import GetDefaultPrinter, OpenPrinter, GetPrinter
 import psutil
 
 iPageOption = {
