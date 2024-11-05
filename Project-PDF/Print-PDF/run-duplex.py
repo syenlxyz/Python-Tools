@@ -53,7 +53,6 @@ def run():
     handle = OpenPrinter(default_printer)
     level = 2
     printer_info = GetPrinter(handle, level)
-    default_duplex = printer_info['pDevMode'].Duplex
     
     app = Dispatch('AcroExch.App')
     app.Hide()
@@ -73,7 +72,6 @@ def run():
             printer_info['pDevMode'].Duplex = 3
         avDoc.PrintPagesEx(**params)
         avDoc.Close(bNoSave=True)
-    printer_info['pDevMode'].Duplex = default_duplex
     process_list = list(psutil.process_iter())
     for process in process_list:
         if process.name() == 'Acrobat.exe':
