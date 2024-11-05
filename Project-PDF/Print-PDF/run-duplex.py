@@ -2,6 +2,7 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from win32com.client import Dispatch
+from win32print import GetDefaultPrinter, OpenPrinter, GetPrinter
 import psutil
 
 iPageOption = {
@@ -48,6 +49,12 @@ def run():
         'iPageOption': iPageOption['PDAllPages']
     }
     
+    default_printer = GetDefaultPrinter()
+    handle = OpenPrinter(default_printer)
+    level = 2
+    printer_info = GetPrinter(handle, level)
+    default_duplex = printer_info['pDevMode'].Duplex
+    
     app = Dispatch('AcroExch.App')
     app.Hide()
     avDoc = Dispatch('AcroExch.AVDoc')
@@ -59,7 +66,7 @@ def run():
         params['nLastPage'] = num_page - 1
         avDoc.PrintPagesEx(**params)
         avDoc.Close(bNoSave=True)
-    
+    printer_info['pDevMode'].Duplex = default_duplex
     process_list = list(psutil.process_iter())
     for process in process_list:
         if process.name() == 'Acrobat.exe':
