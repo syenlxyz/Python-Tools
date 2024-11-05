@@ -55,7 +55,6 @@ def run():
     handle = OpenPrinter(default_printer)
     level = 2
     printer_info = GetPrinter(handle, level)
-    default_duplex = printer_info['pDevMode'].Duplex
     
     wrd = Dispatch('Word.Application')
     wrd.Visible = False
@@ -70,7 +69,6 @@ def run():
         wrd.ActiveDocument.PrintOut(**params)
         wrd.ActiveDocument.Close(SaveChanges=False)
     wrd.Quit()
-    printer_info['pDevMode'].Duplex = default_duplex
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
