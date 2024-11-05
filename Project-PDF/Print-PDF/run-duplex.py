@@ -64,6 +64,13 @@ def run():
         pdDoc = avDoc.GetPDDoc()
         num_page = pdDoc.GetNumPages()
         params['nLastPage'] = num_page - 1
+        page = pdDoc.AcquirePage(0)
+        width = page.GetSize().x
+        height = page.GetSize().y
+        if height > width:
+            printer_info['pDevMode'].Duplex = 2
+        else:
+            printer_info['pDevMode'].Duplex = 3
         avDoc.PrintPagesEx(**params)
         avDoc.Close(bNoSave=True)
     printer_info['pDevMode'].Duplex = default_duplex
