@@ -2,6 +2,7 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from win32com.client import Dispatch
+from win32print import GetDefaultPrinter, OpenPrinter, GetPrinter
 
 WdPrintOutPages = {
     'AllPages': 0,
@@ -49,6 +50,12 @@ def run():
         'PrintToFile': False,
         'Collate': True
     }
+    
+    default_printer = GetDefaultPrinter()
+    handle = OpenPrinter(default_printer)
+    level = 2
+    printer_info = GetPrinter(handle, level)
+    printer_info['pDevMode'].Duplex = 1
     
     wrd = Dispatch('Word.Application')
     wrd.Visible = False
