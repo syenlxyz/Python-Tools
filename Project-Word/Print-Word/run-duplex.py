@@ -53,8 +53,7 @@ def run():
     
     default_printer = GetDefaultPrinter()
     handle = OpenPrinter(default_printer)
-    level = 2
-    printer_info = GetPrinter(handle, level)
+    printer_info = GetPrinter(handle, 2)
     
     wrd = Dispatch('Word.Application')
     wrd.Visible = False
