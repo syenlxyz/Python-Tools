@@ -63,11 +63,11 @@ def run():
     for file_path in results:
         results.text(f'Printing Word: {file_path.name}')
         wrd.Documents.Open(str(file_path))
-        wrd.ActiveDocument.PrintOut(**params)
         if wrd.ActiveDocument.PageSetup.Orientation:
             printer_info['pDevMode'].Duplex = 3
         else:
             printer_info['pDevMode'].Duplex = 2
+        wrd.ActiveDocument.PrintOut(**params)
         wrd.ActiveDocument.Close(SaveChanges=False)
     wrd.Quit()
     printer_info['pDevMode'].Duplex = default_duplex
