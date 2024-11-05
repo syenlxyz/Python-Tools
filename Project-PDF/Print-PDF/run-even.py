@@ -3,7 +3,6 @@ from datetime import datetime
 from pathlib import Path
 from pypdf import PdfReader, PdfWriter
 from win32com.client import Dispatch
-from win32print import SetDefaultPrinter
 import psutil
 
 iPageOption = {
@@ -24,9 +23,6 @@ def run():
         'receipt_text': True,
         'dual_line': True
     }
-    
-    target_printer = 'EPSON L3150 Series'
-    SetDefaultPrinter(target_printer)
     
     file_list = list(input_path.glob('**/*.pdf'))
     results = alive_it(
