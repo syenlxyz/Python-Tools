@@ -2,6 +2,7 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from win32com.client import Dispatch
+from win32print import GetDefaultPrinter, OpenPrinter, GetPrinter
 
 WdPrintOutPages = {
     'AllPages': 0,
@@ -50,6 +51,12 @@ def run():
         'Collate': True
     }
     
+    default_printer = GetDefaultPrinter()
+    handle = OpenPrinter(default_printer)
+    level = 2
+    printer_info = GetPrinter(handle, level)
+    default_duplex = printer_info['pDevMode'].Duplex
+    
     wrd = Dispatch('Word.Application')
     wrd.Visible = False
     wrd.Options.PrintReverse = False
@@ -57,8 +64,13 @@ def run():
         results.text(f'Printing Word: {file_path.name}')
         wrd.Documents.Open(str(file_path))
         wrd.ActiveDocument.PrintOut(**params)
+        if wrd.ActiveDocument.PageSetup.Orientation:
+            printer_info['pDevMode'].Duplex = 3
+        else:
+            printer_info['pDevMode'].Duplex = 2
         wrd.ActiveDocument.Close(SaveChanges=False)
     wrd.Quit()
+    printer_info['pDevMode'].Duplex = default_duplex
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
