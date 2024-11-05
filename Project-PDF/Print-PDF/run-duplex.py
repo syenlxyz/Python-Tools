@@ -71,6 +71,7 @@ def run():
             printer_info['pDevMode'].Duplex = 3
         avDoc.PrintPagesEx(**params)
         avDoc.Close(bNoSave=True)
+    
     process_list = list(psutil.process_iter())
     for process in process_list:
         if process.name() == 'Acrobat.exe':
