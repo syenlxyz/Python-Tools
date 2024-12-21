@@ -1,7 +1,7 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from py7zr import unpack_7zarchive
+from py7zr import pack_7zarchive
 import shutil
 
 def run():
@@ -24,25 +24,20 @@ def run():
         'dual_line': True
     }
     
-    file_list = []
-    path_list = list(input_path.glob('**/*'))
-    suffix_list = ['.7z', '.zip']
-    for path in path_list:
-        if path.suffix in suffix_list:
-            file_list.append(path)
-    
+    folder_list = list(input_path.iterdir())
     results = alive_it(
-        file_list, 
-        len(file_list), 
+        folder_list, 
+        len(folder_list), 
         finalize=lambda bar: bar.text('Extracting Files: done'),
         **options
     )
     
-    
-    shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
-    for file_path in results:
-        results.text(f'Extracting Files: {file_path.name}')
-        shutil.unpack_archive(str(file_path), str(output_path))
+    shutil.register_archive_format('7zip', pack_7zarchive, description='7zip archive')
+    for folder_path in results:
+        results.text(f'Extracting Files: {folder_path.name}')
+        file_path = output_path / folder_path.name
+        target_path = file_path.relative_to(Path.cwd())
+        shutil.make_archive(str(target_path), '7zip', str(folder_path))
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
