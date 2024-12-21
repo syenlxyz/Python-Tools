@@ -1,8 +1,7 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from py7zr import SevenZipFile
-from zipfile import ZipFile
+from py7zr import unpack_7zarchive
 import shutil
 
 def run():
@@ -26,7 +25,7 @@ def run():
     }
     
     file_list = []
-    path_list = list(output_path.glob('**/*'))
+    path_list = list(input_path.glob('**/*'))
     suffix_list = ['.7z', '.zip']
     for path in path_list:
         if path.suffix in suffix_list:
@@ -39,19 +38,10 @@ def run():
         **options
     )
     
+    shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
     for file_path in results:
         results.text(f'Extracting Files: {file_path.name}')
-        
-        target_path = output_path / file_path.stem
-
-        if file_path.suffix == '.7z':
-            
-            pass
-        if file_path.suffix == '.zip':
-            pass
-        with SevenZipFile(file_path, mode='r') as file:
-            if not file.needs_password():
-                file.extract(target_path)
+        shutil.unpack_archive(str(file_path), str(output_path))
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
