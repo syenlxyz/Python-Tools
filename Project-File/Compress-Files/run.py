@@ -32,11 +32,10 @@ def run():
         **options
     )
     
-    shutil.register_archive_format('7zip', pack_7zarchive, description='7zip archive')
+    shutil.register_archive_format('7zip', pack_7zarchive)
     for folder_path in results:
         results.text(f'Compressing Files: {folder_path.name}')
-        file_path = output_path / folder_path.name
-        target_path = file_path.relative_to(Path.cwd())
+        target_path = output_path / folder_path.name
         shutil.make_archive(str(target_path), 'zip', str(folder_path))
 
 if __name__ == '__main__':
