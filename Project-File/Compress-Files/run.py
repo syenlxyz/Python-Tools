@@ -28,13 +28,13 @@ def run():
     results = alive_it(
         folder_list, 
         len(folder_list), 
-        finalize=lambda bar: bar.text('Extracting Files: done'),
+        finalize=lambda bar: bar.text('Compressing Files: done'),
         **options
     )
     
     shutil.register_archive_format('7zip', pack_7zarchive, description='7zip archive')
     for folder_path in results:
-        results.text(f'Extracting Files: {folder_path.name}')
+        results.text(f'Compressing Files: {folder_path.name}')
         file_path = output_path / folder_path.name
         target_path = file_path.relative_to(Path.cwd())
         shutil.make_archive(str(target_path), '7zip', str(folder_path))
