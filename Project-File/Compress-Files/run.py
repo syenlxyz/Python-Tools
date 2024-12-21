@@ -38,6 +38,7 @@ def run():
         **options
     )
     
+    
     shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
     for file_path in results:
         results.text(f'Extracting Files: {file_path.name}')
