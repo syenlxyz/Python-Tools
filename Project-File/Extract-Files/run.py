@@ -25,17 +25,30 @@ def run():
         'dual_line': True
     }
     
-    file_list = list(input_path.glob('**/*.7z'))
+    file_list = []
+    path_list = list(output_path.glob('**/*'))
+    suffix_list = ['.7z', '.zip']
+    for path in path_list:
+        if path.suffix in suffix_list:
+            file_list.append(path)
+    
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Extracting 7z Files: done'),
+        finalize=lambda bar: bar.text('Extracting Files: done'),
         **options
     )
     
     for file_path in results:
-        results.text(f'Extracting 7z Files: {file_path.name}')
+        results.text(f'Extracting Files: {file_path.name}')
+        
         target_path = output_path / file_path.stem
+
+        if file_path.suffix == '.7z':
+            
+            pass
+        if file_path.suffix == '.zip':
+            pass
         with SevenZipFile(file_path, mode='r') as file:
             if not file.needs_password():
                 file.extract(target_path)
