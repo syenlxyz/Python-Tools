@@ -37,7 +37,7 @@ def run():
         results.text(f'Compressing Files: {folder_path.name}')
         file_path = output_path / folder_path.name
         target_path = file_path.relative_to(Path.cwd())
-        shutil.make_archive(str(target_path), '7zip', str(folder_path))
+        shutil.make_archive(str(target_path), 'zip', str(folder_path))
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
