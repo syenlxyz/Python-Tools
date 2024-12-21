@@ -41,7 +41,8 @@ def run():
     shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
     for file_path in results:
         results.text(f'Extracting Files: {file_path.name}')
-        shutil.unpack_archive(str(file_path), str(output_path))
+        target_path = output_path / file_path.stem
+        shutil.unpack_archive(str(file_path), str(target_path))
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
