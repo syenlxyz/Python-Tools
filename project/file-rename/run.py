@@ -15,6 +15,14 @@ def run():
         shutil.rmtree(str(output_path))
         shutil.copytree(str(input_path), str(output_path))
     
+    options = {
+        'length': 70,
+        'spinner': 'classic',
+        'bar': 'classic2',
+        'receipt_text': True,
+        'dual_line': True
+    }
+    
     file_list = []
     folder_list = []
     path_list = list(output_path.iterdir())
@@ -23,14 +31,6 @@ def run():
             file_list.append(path)
         if path.is_dir():
             folder_list.append(path)
-    
-    options = {
-        'length': 70,
-        'spinner': 'classic',
-        'bar': 'classic2',
-        'receipt_text': True,
-        'dual_line': True
-    }
     
     results = alive_it(
         file_list, 
@@ -55,7 +55,7 @@ def run():
             **options
         )
         for index, file_path in enumerate(results):
-            results.text(f'Renaming File for {folder_path.relative_to(output_path)}')
+            results.text(f'Renaming File for {folder_path.relative_to(output_path)}: {file_path.name}')
             num_file = len(file_list)
             num_digit = len(str(num_file))
             prefix = str(index + 1).zfill(num_digit)
