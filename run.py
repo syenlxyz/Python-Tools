@@ -1,7 +1,6 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from string import ascii_lowercase
 
 def run():
     input_path = Path.cwd()
@@ -19,7 +18,7 @@ def run():
     lines = []
     lines.append('# Python-Tools')
     for index, folder_path in enumerate(folder_list):
-        lines.append(f'### {index + 1}. {folder_path.name}')
+        lines.append(f'{index + 1}. {folder_path.name}')
         
         file_list = list(folder_path.iterdir())
         results = alive_it(
@@ -28,13 +27,13 @@ def run():
             finalize=lambda bar: bar.text(f'Creating URL for {folder_path.name}: done'),
             **options
         )
-        for index, file_path in enumerate(results):
+        for file_path in results:
             results.text(f'Creating URL for {folder_path.name}: {file_path.name}')
             base_url = 'https://github.com/syenlxyz/Python-Tools/tree/main'
             target_url = '/'.join([base_url, folder_path.name, file_path.name])
-            lines.append(f'{ascii_lowercase[index]}. [{file_path.name}]({target_url})')
+            lines.append(f'    * [{file_path.name}]({target_url})')
     
-    text = '\n\n'.join(lines)
+    text = '\n'.join(lines)
     with open(output_path, 'w') as file:
         file.write(text)
 
