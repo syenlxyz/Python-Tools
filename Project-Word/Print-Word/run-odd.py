@@ -1,4 +1,4 @@
-## run-odd-rev coming soon
+## Unresolved issue: run-odd-rev is not created
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
