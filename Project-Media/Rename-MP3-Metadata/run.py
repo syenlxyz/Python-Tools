@@ -20,12 +20,12 @@ def run():
     results = alive_it(
         file_list,
         len(file_list),
-        finalize=lambda bar: bar.text('Renaming MP3 metadata: done'),
+        finalize=lambda bar: bar.text('Renaming MP3 Metadata: done'),
         **options
     )
     
     for file_path in results:
-        results.text(f'Renaming MP3 metadata: {file_path.name}')
+        results.text(f'Renaming MP3 Metadata: {file_path.name}')
         file = File(file_path, easy=True)
         file['title'] = file_path.stem
         file['album'] = file_path.parent.stem
