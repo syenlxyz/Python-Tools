@@ -15,14 +15,12 @@ def run():
         'receipt_text': True,
         'dual_line': True
     }
-
-    title = '# Python-Tools'
-    base_url = 'https://github.com/syenlxyz/Python-Tools/tree/main/'
     
     lines = []
-    lines.append(title)
+    lines.append('# Python-Tools')
     for index, folder_path in enumerate(folder_list):
-        lines.append(f'### {index + 1}. {folder_path.name}')
+        lines.append(f'\n### {index + 1}. {folder_path.name}')
+        
         file_list = list(folder_path.iterdir())
         results = alive_it(
             file_list, 
@@ -32,9 +30,10 @@ def run():
         )
         for index, file_path in enumerate(results):
             results.text(f'Creating URL for {folder_path.name}: {file_path.name}')
+            base_url = 'https://github.com/syenlxyz/Python-Tools/tree/main/'
             target_path = file_path.relative_to(input_path)
             target_url = base_url + str(target_path)
-            lines.append(f'{ascii_lowercase[index]}. {file_path.name}: {target_url}')
+            lines.append(f'\n{ascii_lowercase[index]}. {file_path.name}: {target_url}')
     
     text = '\n'.join(lines)
     with open(output_path, 'w') as file:
