@@ -28,14 +28,14 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Converting Doc to Docx: done'),
+        finalize=lambda bar: bar.text('Converting Word to Docx: done'),
         **options
     )
     
     wrd = Dispatch('Word.Application')
     wrd.Visible = False
     for file_path in results:
-        results.text(f'Converting Doc to Docx: {file_path.name}')
+        results.text(f'Converting Word to Docx: {file_path.name}')
         wrd.Documents.Open(str(file_path))
         target_path = file_path.with_suffix('.docx')
         wrd.ActiveDocument.SaveAs2(str(target_path), FileFormat=16)
