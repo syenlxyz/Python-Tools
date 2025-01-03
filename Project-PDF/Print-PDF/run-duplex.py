@@ -1,4 +1,4 @@
-## Under development
+## Unresolved issue: printer does not print duplex with this code
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
