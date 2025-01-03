@@ -30,9 +30,10 @@ def run():
         )
         for index, file_path in enumerate(results):
             results.text(f'Creating URL for {folder_path.name}: {file_path.name}')
+            lines.append(f'{ascii_lowercase[index]}. {file_path.name}:')
             base_url = 'https://github.com/syenlxyz/Python-Tools/tree/main/'
             target_url = base_url + str(file_path.relative_to(input_path))
-            lines.append(f'{ascii_lowercase[index]}. {file_path.name}: {target_url}')
+            lines.append(target_url)
     
     text = '\n\n'.join(lines)
     with open(output_path, 'w') as file:
