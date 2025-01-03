@@ -32,12 +32,13 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Copying File: done'),
+        finalize=lambda bar: bar.text('Organizing File: done'),
         **options
     )
     
     suffix_list = []
     for file_path in results:
+        results.text(f'Organizing File: {file_path.name}')
         suffix = file_path.suffix
         target_folder = output_path / suffix[1:]
         if suffix not in suffix_list:
