@@ -28,7 +28,7 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Printing PDF (Odd Pages Only): done'),
+        finalize=lambda bar: bar.text('Printing PDF in Reverse (Odd Pages Only): done'),
         **options
     )
     
@@ -58,7 +58,7 @@ def run():
     app.Hide()
     avDoc = Dispatch('AcroExch.AVDoc')
     for file_path in results:
-        results.text(f'Printing PDF Document (Odd Pages Only): {file_path.name}')
+        results.text(f'Printing PDF Document in Reverse (Odd Pages Only): {file_path.name}')
         avDoc.Open(file_path, file_path)
         pdDoc = avDoc.GetPDDoc()
         num_page = pdDoc.GetNumPages()
