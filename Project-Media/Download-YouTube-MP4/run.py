@@ -25,12 +25,12 @@ def run():
     results = alive_it(
         playlist,
         len(playlist),
-        finalize=lambda bar: bar.text('Downloading MP4: done'),
+        finalize=lambda bar: bar.text('Downloading YouTube MP4: done'),
         **options
     )
     
     for url in results:
-        results.text(f'Downloading MP4: {url}')
+        results.text(f'Downloading YouTube MP4: {url}')
         yt = YouTube(url)
         
         video_file = Path(
