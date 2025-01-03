@@ -31,22 +31,25 @@ def run():
             folder_list.append(path)
     
     file_list = list(input_path.glob('*.pdf'))
-    results = alive_it(
-        file_list, 
-        len(file_list), 
-        finalize=lambda bar: bar.text('Merging PDF: done'),
-        **options
-    )
-    merger = PdfWriter()
-    for file_path in results:
-        results.text(f'Merging PDF: {file_path.name}')
-        merger.append(file_path)
-    target_path = output_path / input_path.with_suffix('.pdf').name
-    merger.write(target_path)
-    merger.close()
+    if file_list:
+        results = alive_it(
+            file_list, 
+            len(file_list), 
+            finalize=lambda bar: bar.text(f'Merging PDF for {input_path.name}: done'),
+            **options
+        )
+        merger = PdfWriter()
+        for file_path in results:
+            results.text(f'Merging PDF for {input_path.name}: {file_path.name}')
+            merger.append(file_path)
+        target_path = output_path / input_path.with_suffix('.pdf').name
+        merger.write(target_path)
+        merger.close()
     
     for folder_path in folder_list:
         file_list = list(folder_path.glob('*.pdf'))
+        if not file_list:
+            continue
         results = alive_it(
             file_list, 
             len(file_list), 
