@@ -1,7 +1,7 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from pypdf import PdfReader
+from pypdf import PdfReader, PdfWriter
 import shutil
 
 def run():
@@ -28,22 +28,22 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Extracting Text: done'),
+        finalize=lambda bar: bar.text('Splitting PDF: done'),
         **options
     )
 
     for file_path in results:
-        results.text(f'Extracting Text: {file_path.name}')
+        results.text(f'Splitting PDF: {file_path.name}')
         reader = PdfReader(file_path)
         pages = list(reader.pages)
-        items = []
-        for page in pages:
-            item = page.extract_text()
-            items.append(item)
-        text = '\n'.join(items)
-        target_path = file_path.with_suffix('.txt')
-        with open(target_path, 'w') as file:
-            file.write(text)
+        for index, page in enumerate(pages):
+            writer = PdfWriter()
+            writer.add_page(page)
+            folder_path = file_path.with_suffix('')
+            folder_path.mkdir()
+            target_path = folder_path / f'page{index + 1}.pdf'
+            with open(target_path, 'wb') as file:
+                writer.write(file)
         file_path.unlink()
 
 if __name__ == '__main__':
