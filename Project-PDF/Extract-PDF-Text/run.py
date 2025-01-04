@@ -31,7 +31,7 @@ def run():
         finalize=lambda bar: bar.text('Extracting Text: done'),
         **options
     )
-
+    
     for file_path in results:
         results.text(f'Extracting Text: {file_path.name}')
         reader = PdfReader(file_path)
