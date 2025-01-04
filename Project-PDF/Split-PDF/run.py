@@ -31,7 +31,7 @@ def run():
         finalize=lambda bar: bar.text('Splitting PDF: done'),
         **options
     )
-
+    
     for file_path in results:
         results.text(f'Splitting PDF: {file_path.name}')
         folder_path = file_path.with_suffix('')
