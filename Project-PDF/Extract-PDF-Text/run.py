@@ -4,8 +4,6 @@ from pathlib import Path
 from pypdf import PdfReader
 import shutil
 
-
-
 def run():
     input_path = Path.cwd() / 'input'
     if not input_path.is_dir():
