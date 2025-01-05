@@ -26,7 +26,7 @@ def run():
     
     file_list = []
     path_list = list(output_path.glob('**/*'))
-    suffix_list = ['.aac', '.m4a', '.wav', '.wma', '.webm']
+    suffix_list = ['.aac', '.m4a', '.wav', '.wma']
     for path in path_list:
         if path.suffix in suffix_list:
             file_list.append(path)
@@ -40,8 +40,8 @@ def run():
     
     for file_path in results:
         results.text(f'Converting Audio to MP3: {file_path.name}')
-        target_path = file_path.with_suffix('mp3')
-        subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{file_path} -c copy {target_path}')
+        target_path = file_path.with_suffix('.mp3')
+        subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{file_path}" "{target_path}"')
         file_path.unlink()
 
 if __name__ == '__main__':
