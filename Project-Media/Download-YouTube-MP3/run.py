@@ -41,7 +41,7 @@ def run():
             .download(output_path)
         )
         output_file = audio_file.with_suffix('.mp3')
-        subprocess.run(f'ffmpeg -hide_banner -loglevel error -i "{audio_file}" -y "{output_file}"')
+        subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{audio_file}" -c copy "{output_file}"')
         audio_file.unlink()
 
 def get_playlist():
