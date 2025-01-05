@@ -1,7 +1,6 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from py7zr import pack_7zarchive
 import shutil
 
 def run():
