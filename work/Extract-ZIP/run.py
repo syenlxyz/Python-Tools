@@ -1,7 +1,6 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from py7zr import unpack_7zarchive
 import shutil
 
 def run():
@@ -38,7 +37,6 @@ def run():
         **options
     )
     
-    shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
     for file_path in results:
         results.text(f'Extracting Files: {file_path.name}')
         target_path = output_path / file_path.stem
