@@ -55,7 +55,7 @@ def run():
         
         file_name = video_file.stem.replace(' - Video Only', '')
         output_file = output_path / f'{file_name}.mp4'
-        subprocess.run(f'ffmpeg -hide_banner -loglevel error -i "{video_file}" -i "{audio_file}" -c copy -y "{output_file}"')
+        subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{video_file}" -i "{audio_file}" -c copy "{output_file}"')
         
         video_file.unlink()
         audio_file.unlink()
