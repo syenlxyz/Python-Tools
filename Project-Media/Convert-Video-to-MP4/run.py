@@ -26,7 +26,7 @@ def run():
     
     file_list = []
     path_list = list(output_path.glob('**/*'))
-    suffix_list = ['mov']
+    suffix_list = ['.avi', '.flv', '.m4v', '.mkv', '.mov', '.rm', '.rmvb', '.webm', '.wmv']
     for path in path_list:
         if path.suffix in suffix_list:
             file_list.append(path)
