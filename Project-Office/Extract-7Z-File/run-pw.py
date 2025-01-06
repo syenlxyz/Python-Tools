@@ -24,19 +24,27 @@ def run():
         'dual_line': True
     }
     
-    file_list = list(input_path.glob('**/*.7z'))
-    results = alive_it(
-        file_list, 
-        len(file_list), 
-        finalize=lambda bar: bar.text('Extracting 7Z: done'),
-        **options
-    )
+    folder_list = []
+    path_list = list(input_path.iterdir())
+    for path in path_list:
+        if path.is_dir():
+            folder_list.append(path)
     
-    for file_path in results:
-        results.text(f'Extracting 7Z: {file_path.name}')
-        target_path = output_path / file_path.stem
-        with SevenZipFile(file_path, mode='r') as file:
-            file.extractall(target_path)
+    for folder_path in folder_list:
+        file_list = list(folder_path.glob('**/*.7z'))
+        results = alive_it(
+            file_list, 
+            len(file_list), 
+            finalize=lambda bar: bar.text(f'Extracting 7Z File with Password for {folder_path.name}: done'),
+            **options
+        )
+        
+        for file_path in results:
+            results.text(f'Extracting 7Z File with Password for {folder_path.name}: {file_path.name}')
+            target_path = output_path / file_path.stem
+            password = folder_path.name
+            with SevenZipFile(file_path, 'r', password=password) as file:
+                file.extractall(target_path)
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
