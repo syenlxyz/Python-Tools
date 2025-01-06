@@ -59,7 +59,7 @@ def run():
             target_path = output_path / folder_path.name
             password = folder_path.name
             for file_path in file_list:
-                subprocess.run(f'7z a -bso0 -bsp0 -p{password} "{target_path}" "{file_path}"')
+                subprocess.run(f'7z a -bso0 -bsp0 -mhe=on -p{password} "{target_path}" "{file_path}"')
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
