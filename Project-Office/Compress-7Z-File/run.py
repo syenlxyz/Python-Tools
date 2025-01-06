@@ -1,8 +1,8 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from py7zr import pack_7zarchive
 import shutil
+import subprocess
 
 def run():
     input_path = Path.cwd() / 'input'
@@ -32,11 +32,10 @@ def run():
         **options
     )
     
-    shutil.register_archive_format('7zip', pack_7zarchive)
     for folder_path in results:
         results.text(f'Compressing 7Z File: {folder_path.name}')
         target_path = output_path / folder_path.name
-        shutil.make_archive(str(target_path), '7zip', str(folder_path))
+        subprocess.run(f'7z a -bso0 -bsp0 "{target_path}" "{folder_path}"')
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
