@@ -28,7 +28,8 @@ def run():
     folder_list = []
     path_list = list(input_path.iterdir())
     for path in path_list:
-        if path.is_file():
+        suffix_list = ['.7z', '.zip']
+        if path.suffix in suffix_list:
             file_list.append(path)
         if path.is_dir():
             folder_list.append(path)
@@ -46,7 +47,13 @@ def run():
         subprocess.run(f'7z x -bso0 -bsp0 -p{password} "{file_path}" -o"{target_path}')
 
     for folder_path in folder_list:
-        file_list = list(folder_path.glob('**/*.7z'))
+        file_list = []
+        path_list = list(folder_path.glob('**/*'))
+        suffix_list = ['.7z', '.zip']
+        for path in path_list:
+            if path.suffix in suffix_list:
+                file_list.append(path)
+        
         results = alive_it(
             file_list, 
             len(file_list), 
