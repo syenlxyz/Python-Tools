@@ -37,7 +37,6 @@ def run():
         target_path = output_path / file_path.stem
         subprocess.run(f'7z x -bso0 -bsp0 "{file_path}" -o"{target_path}"')
 
-
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
     start_time = datetime.now()
