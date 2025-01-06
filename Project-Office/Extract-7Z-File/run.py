@@ -24,16 +24,22 @@ def run():
         'dual_line': True
     }
     
-    file_list = list(input_path.glob('**/*.7z'))
+    file_list = []
+    path_list = list(input_path.glob('**/*'))
+    suffix_list = ['.7z', '.zip']
+    for path in path_list:
+        if path.suffix in suffix_list:
+            file_list.append(path)
+    
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Extracting 7Z File: done'),
+        finalize=lambda bar: bar.text('Extracting File: done'),
         **options
     )
     
     for file_path in results:
-        results.text(f'Extracting 7Z File: {file_path.name}')
+        results.text(f'Extracting File: {file_path.name}')
         target_path = output_path / file_path.stem
         subprocess.run(f'7z x -bso0 -bsp0 "{file_path}" -o"{target_path}"')
 
