@@ -28,15 +28,16 @@ def run():
     results = alive_it(
         folder_list, 
         len(folder_list), 
-        finalize=lambda bar: bar.text('Compressing Files: done'),
+        finalize=lambda bar: bar.text('Compressing 7Z File with Password: done'),
         **options
     )
     
     for folder_path in results:
-        results.text(f'Compressing Files: {folder_path.name}')
-        target_path = output_path / folder_path.name
-        with SevenZipFile(target_path, 'w') as file:
-            file.write(folder_path)
+        results.text(f'Compressing 7Z File with Password: {folder_path.name}')
+        target_path = output_path / folder_path.with_suffix('.7z').name
+        password = folder_path.name
+        with SevenZipFile(target_path, 'w', password=password) as file:
+            file.writeall(folder_path)
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
