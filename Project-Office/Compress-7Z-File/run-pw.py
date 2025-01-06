@@ -1,8 +1,8 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from py7zr import SevenZipFile
 import shutil
+import subprocess
 
 def run():
     input_path = Path.cwd() / 'input'
@@ -34,10 +34,10 @@ def run():
     
     for folder_path in results:
         results.text(f'Compressing 7Z File with Password: {folder_path.name}')
-        target_path = output_path / folder_path.with_suffix('.7z').name
+        target_path = output_path / folder_path.name
         password = folder_path.name
-        with SevenZipFile(target_path, 'w', password=password) as file:
-            file.writeall(folder_path)
+        subprocess.run(f'7z a -bso0 -bsp0 -p{password} "{target_path}" "{folder_path}"')
+
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
