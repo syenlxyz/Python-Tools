@@ -37,11 +37,11 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text(f'Extracting 7Z File with Password for {input_path.name}: done'),
+        finalize=lambda bar: bar.text(f'Extracting File with Password for {input_path.name}: done'),
         **options
     )
     for file_path in results:
-        results.text(f'Extracting 7Z File with Password for {input_path.name}: {file_path.name}')
+        results.text(f'Extracting File with Password for {input_path.name}: {file_path.name}')
         target_path = output_path / file_path.stem
         password = 'password'
         subprocess.run(f'7z x -bso0 -bsp0 -p{password} "{file_path}" -o"{target_path}')
