@@ -28,12 +28,12 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Extracting Text: done'),
+        finalize=lambda bar: bar.text('Extracting PDF Text: done'),
         **options
     )
     
     for file_path in results:
-        results.text(f'Extracting Text: {file_path.name}')
+        results.text(f'Extracting PDF Text: {file_path.name}')
         reader = PdfReader(file_path)
         pages = list(reader.pages)
         items = []
