@@ -24,7 +24,7 @@ def run():
         'dual_line': True
     }
     
-    file_list = list(input_path.glob('**/*.docx'))
+    file_list = list(output_path.glob('**/*.docx'))
     results = alive_it(
         file_list, 
         len(file_list), 
