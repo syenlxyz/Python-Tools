@@ -28,13 +28,13 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Extracting 7Z: done'),
+        finalize=lambda bar: bar.text('Extracting 7Z File: done'),
         **options
     )
     
     shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
     for file_path in results:
-        results.text(f'Extracting 7Z: {file_path.name}')
+        results.text(f'Extracting 7Z File: {file_path.name}')
         target_path = output_path / file_path.stem
         shutil.unpack_archive(str(file_path), str(target_path))
 
