@@ -41,7 +41,7 @@ def run():
     )
     for file_path in results:
         results.text(f'Compressing 7Z File for {input_path.name}: {file_path.name}')
-        target_path = output_path / file_path.name
+        target_path = output_path / file_path.stem
         subprocess.run(f'7z a -bso0 -bsp0 "{target_path}" "{file_path}"')
     
     for folder_path in folder_list:
