@@ -34,20 +34,31 @@ def run():
             folder_list.append(path)
     
     results = alive_it(
-        folder_list, 
-        len(folder_list), 
-        finalize=lambda bar: bar.text('Compressing 7Z File: done'),
+        file_list, 
+        len(file_list), 
+        finalize=lambda bar: bar.text(f'Compressing 7Z File for {input_path.name}: done'),
         **options
     )
-    
-    for folder_path in results:
-        results.text(f'Compressing 7Z File: {folder_path.name}')
-        target_path = output_path / folder_path.name
-        subprocess.run(f'7z a -bso0 -bsp0 "{target_path}" "{folder_path}"')
-    else:
+    for file_path in results:
+        results.text(f'Compressing 7Z File for {input_path.name}: {file_path.name}')
         target_path = output_path / input_path.name
-        file_list = ' '.join([str(path) for path in file_list])
-        subprocess.run(f'7z a -bso0 -bsp0 "{target_path}" "{file_list}"')
+        for file_path in file_list:
+            subprocess.run(f'7z a -bso0 -bsp0 "{target_path}" "{file_path}"')
+    
+    for folder_path in folder_list:
+        file_list = list(folder_path.iterdir())
+        results = alive_it(
+            file_list, 
+            len(file_list), 
+            finalize=lambda bar: bar.text(f'Compressing 7Z File for {folder_path.name}: done'),
+            **options
+        )
+        
+        for file_path in results:
+            results.text(f'Compressing 7Z File for {folder_path.name}: {file_path.name}')
+            target_path = output_path / folder_path.name
+            for file_path in file_list:
+                subprocess.run(f'7z a -bso0 -bsp0 "{target_path}" "{file_path}"')
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
