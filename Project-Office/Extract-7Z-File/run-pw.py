@@ -1,8 +1,8 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from py7zr import SevenZipFile
 import shutil
+import subprocess
 
 def run():
     input_path = Path.cwd() / 'input'
@@ -43,8 +43,7 @@ def run():
             results.text(f'Extracting 7Z File with Password for {folder_path.name}: {file_path.name}')
             target_path = output_path / file_path.stem
             password = folder_path.name
-            with SevenZipFile(file_path, 'r', password=password) as file:
-                file.extractall(target_path)
+            subprocess.run(f'7z x -bso0 -bsp0 -p{password} "{file_path}" -o"{target_path}')
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
