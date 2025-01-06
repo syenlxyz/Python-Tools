@@ -35,11 +35,11 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Renaming File: done'),
+        finalize=lambda bar: bar.text(f'Renaming File for {input_path.name}: done'),
         **options
     )
     for index, file_path in enumerate(results):
-        results.text(f'Renaming File: {file_path.name}')
+        results.text(f'Renaming File {input_path.name}: {file_path.name}')
         num_file = len(file_list)
         num_digit = len(str(num_file))
         prefix = str(index + 1).zfill(num_digit)
