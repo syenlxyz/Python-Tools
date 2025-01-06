@@ -43,7 +43,7 @@ def run():
         results.text(f'Compressing 7Z File with Password for {input_path.name}: {file_path.name}')
         target_path = output_path / file_path.stem
         password = 'password'
-        subprocess.run(f'7z a -bso0 -bsp0 -mhe=on -p{password} "{target_path}" "{file_path}"')
+        subprocess.run(f'7z a -bso0 -bsp0 -t7z -mhe=on -p{password} "{target_path}" "{file_path}"')
     
     for folder_path in folder_list:
         file_list = list(folder_path.iterdir())
@@ -59,7 +59,7 @@ def run():
             target_path = output_path / folder_path.name
             password = folder_path.name
             for file_path in file_list:
-                subprocess.run(f'7z a -bso0 -bsp0 -mhe=on -p{password} "{target_path}" "{file_path}"')
+                subprocess.run(f'7z a -bso0 -bsp0 -t7z -mhe=on -p{password} "{target_path}" "{file_path}"')
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
