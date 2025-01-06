@@ -1,8 +1,8 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from py7zr import unpack_7zarchive
 import shutil
+import subprocess
 
 def run():
     input_path = Path.cwd() / 'input'
@@ -32,11 +32,11 @@ def run():
         **options
     )
     
-    shutil.register_unpack_format('7zip', ['.7z'], unpack_7zarchive)
     for file_path in results:
         results.text(f'Extracting 7Z File: {file_path.name}')
         target_path = output_path / file_path.stem
-        shutil.unpack_archive(str(file_path), str(target_path))
+        subprocess.run(f'7z x -bso0 -bsp0 "{file_path}" -o"{target_path}"')
+
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
