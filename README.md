@@ -1,5 +1,7 @@
 # Python-Tools
 1. Project-Media
+    * [Convert-Audio-to-MP3](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Convert-Audio-to-MP3)
+    * [Convert-Video-to-MP4](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Convert-Video-to-MP4)
     * [Download-YouTube-MP3](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Download-YouTube-MP3)
     * [Download-YouTube-MP4](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Download-YouTube-MP4)
     * [Rename-MP3-Metadata](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Rename-MP3-Metadata)
@@ -7,15 +9,20 @@
     * [Rename-TV-Episode](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Rename-TV-Episode)
     * [Rename-TV-Subtitle](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Rename-TV-Subtitle)
 2. Project-Office
+    * [Compress-7Z-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Compress-7Z-File)
+    * [Compress-ZIP-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Compress-ZIP-File)
     * [Count-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Count-File)
+    * [Extract-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Extract-File)
     * [Merge-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Merge-File)
     * [Organize-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Organize-File)
     * [Rename-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Rename-File)
 3. Project-PDF
     * [Convert-File-to-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Convert-File-to-PDF)
     * [Count-PDF-Page](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Count-PDF-Page)
+    * [Extract-PDF-Text](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Extract-PDF-Text)
     * [Merge-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Merge-PDF)
     * [Print-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Print-PDF)
+    * [Split-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Split-PDF)
 4. Project-Word
     * [Convert-Word-to-DOC](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Convert-Word-to-DOC)
     * [Convert-Word-to-DOCX](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Convert-Word-to-DOCX)
