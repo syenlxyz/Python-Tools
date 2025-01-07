@@ -76,12 +76,12 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text(f': done'),
+        finalize=lambda bar: bar.text(f'Creating Payment Voucher: done'),
         **options
     )
 
     for file_path in results:
-        results.text(f':{file_path.name}')
+        results.text(f'Creating Payment Voucher: {file_path.name}')
         table = get_table(file_path)
         for index, data in enumerate(table):
             target_path = output_path / f'{file_path.stem}-{index + 1}.docx'
