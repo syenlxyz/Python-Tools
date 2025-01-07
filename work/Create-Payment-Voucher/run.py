@@ -6,7 +6,7 @@ import pandas as pd
 import re
 import shutil
 
-num_under_20 = {
+Less_Than_Twenty = {
     0: '',
     1: 'One',
     2: 'Two',
@@ -29,7 +29,7 @@ num_under_20 = {
     19: 'Nineteen'
 }
 
-num_under_100 = {
+Less_Than_Hundred = {
     2: 'Twenty',
     3: 'Thirty',
     4: 'Forty',
@@ -40,7 +40,7 @@ num_under_100 = {
     9: 'Ninety'
 }
 
-num_above_1000 = {
+More_Than_Thousand = {
     1: 'Thousand',
     2: 'Million',
     3: 'Biliion',
@@ -59,6 +59,11 @@ def run():
         shutil.rmtree(str(output_path))
         output_path.mkdir()
     
+    template_path = Path.cwd() / 'template.docx'
+    if not template_path.exists():
+        print(f'{template_path.name} does not exist')
+        return None
+    
     options = {
         'length': 70,
         'spinner': 'classic',
@@ -66,21 +71,83 @@ def run():
         'receipt_text': True,
         'dual_line': True
     }
+    
+    file_list = list(input_path.glob('**/*.xlsx'))
+    results = alive_it(
+        file_list, 
+        len(file_list), 
+        finalize=lambda bar: bar.text(f': done'),
+        **options
+    )
+
+    for file_path in results:
+        results.text(f':{file_path.name}')
+        table = get_table(file_path)
+        for index, data in enumerate(table):
+            target_path = output_path / f'{file_path.stem}-{index + 1}.docx'
+            create_voucher(template_path, target_path, data)
+
+def create_voucher(template_path, target_path, data):
+    doc = Document(template_path)
+    table = doc.tables[0]
+    for row in table.rows:
+        for item in row.cells:
+            pattern = r'\$\{(.*?)\}'
+            result = re.findall(pattern, item.text)
+            if result:
+                key = result[0]
+                value = data[key]
+                for index, run in enumerate(item.paragraphs[0].runs):
+                    if index == 0:
+                        run.text = str(value)
+                    else:
+                        run.text = ''
+    doc.save(target_path)
+
+def get_table(file_path):
+    df = pd.read_excel(file_path)
+    
+    amounts = ['Amount' + str(i + 1) for i in range(8)]
+    for index, amount in enumerate(amounts):
+        if index == 0:
+            df['Total'] = df[amount]
+        elif not df[amount].isna().sum():
+            df['Total'] = df['Total'] + df[amount]
+    df['Ringgit'] = df['Total'].apply(num_to_word)
+    
+    df['Date'] = df['Date'].dt.strftime('%d/%m/%Y')
+    for amount in amounts:
+        if not df[amount].isna().sum():
+            df[amount] = df[amount].apply(lambda row: f'{row:,.2f}')
+    df['Total'] = df['Total'].apply(lambda row: f'{row:,.2f}')
+    df = df.fillna('')
+    
+    table = df.to_dict('records')
+    return table
 
 def num_to_word(num):
-    decimal = round(num - int(num), 2)
-    if decimal:
-        return ' '.join([num_to_word(int(num)), 'and Cents', num_to_word(int(decimal * 100))])
+    if type(num) == float:
+        decimal = round(num - int(num), 2)
+        if decimal:
+            text = ' '.join([num_to_word(int(num)), 'and Cents', num_to_word(int(decimal * 100)), 'Only'])
+        else:
+            text = ' '.join([num_to_word(int(num)), 'Only'])
+        text = text.replace('  ', ' ')
+        return text
     num_digit = len(str(num))
     power = (num_digit - 1) // 3
     if num < 20:
-        return num_under_20[num]
+        text = Less_Than_Twenty[num]
+        return text
     elif num < 100:
-        return ' '.join([num_under_100[num // 10], num_to_word(num % 10)])
+        text = ' '.join([Less_Than_Hundred[num // 10], num_to_word(num % 10)])
+        return text
     elif num < 1000:
-        return ' '.join([num_to_word(num // 100), 'Hundred', num_to_word(num % 100)])
+        text = ' '.join([num_to_word(num // 100), 'Hundred', num_to_word(num % 100)])
+        return text
     elif power < 5:
-        return ' '.join([num_to_word(num // 1000 ** power), num_above_1000[power], num_to_word(num % 1000 ** power)])
+        text = ' '.join([num_to_word(num // 1000 ** power), More_Than_Thousand[power], num_to_word(num % 1000 ** power)])
+        return text
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
