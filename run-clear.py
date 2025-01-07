@@ -1,5 +1,6 @@
 from datetime import datetime
 from pathlib import Path
+import shutil
 
 def run():
     path_list = list(Path.cwd().glob('**/*'))
@@ -7,7 +8,7 @@ def run():
         name_list = ['input', 'output']
         if path.is_dir() and path.name in name_list:
             print(path)
-            #shutil.rmtree(str(path))
+            shutil.rmtree(str(path))
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
