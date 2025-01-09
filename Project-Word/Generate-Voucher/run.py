@@ -105,6 +105,7 @@ def get_table(file_path):
     
     df['Date'] = df.apply(lambda row: get_date_string(row), axis='columns')
     df['Voucher'] = df.apply(lambda row: get_voucher_string(row), axis='columns')
+    df['Reference'] = df['Reference'].apply(lambda row: str(row).zfill(6) if row else row)
     
     for index in range(12):
         df['Account' + str(index + 1)] = df.apply(lambda row: get_account_string(row, index + 1), axis='columns')
@@ -141,66 +142,63 @@ def get_voucher_string(row):
     return voucher_string
 
 def get_account_string(row, index):
-    account = row['Account' + str(index)]
+    account_string = row['Account' + str(index)]
     voucher_type = row['Type']
-    if account:
+    if account_string:
         if voucher_type == 'PV':
             if index == 'Total':
-                account_string = f'CR {account}'
+                account_string = f'CR {account_string}'
             else:
-                account_string = f'DR {account}'
+                account_string = f'DR {account_string}'
         if voucher_type == 'RV':
             if index == 'Total':
-                account_string = f'DR {account}'
+                account_string = f'DR {account_string}'
             else:
-                account_string = f'CR {account}'
+                account_string = f'CR {account_string}'
         if voucher_type == 'JV':
             debit = row['Debit' + str(index)]
-            credit = row['Crebit' + str(index)]
+            credit = row['Credit' + str(index)]
             if debit:
-                account_string = f'DR {account}'
+                account_string = f'DR {account_string}'
             if credit:
-                account_string = f'CR {account}'
-    else:
-        account_string = ''
+                account_string = f'CR {account_string}'
     return account_string
 
 def get_particular_string(row, index):
-    description = row['Description' + str(index)]
-    period = row['Period' + str(index)]
-    if description and period:
-        particular_string = f'{description} ({period})'
-    elif description:
-        particular_string = description
-    else:
-        particular_string = ''
+    particular_string = row['Particular' + str(index)]
+    if not particular_string:
+        description = row['Description' + str(index)]
+        period = row['Period' + str(index)]
+        if description and period:
+            particular_string = f'{description} ({period})'
+        elif description:
+            particular_string = description
     return particular_string
 
 def get_amount_total(row, name, index):
-    column = row[name + str(index)]
-    total = row[name + 'Total']
-    if column:
-        if index == 1:
-            amount_total = column
-        else:
-            amount_total = total + column
-    else:
-        amount_total = total
+    amount = row[name + str(index)]
+    amount_total = row[name + 'Total']
+    if amount and not amount_total:
+        amount_total = amount
+    elif amount and amount_total:
+        amount_total = amount_total + amount
+    elif not amount and not amount_total:
+        amount_total = 0.0
     return amount_total
 
 def get_amount_string(row, name, index):
-    column = row[name + str(index)]
-    if column:
-        amount_string = f'RM{column:,.2f}'
+    amount = row[name + str(index)]
+    if amount:
+        amount_string = f'RM{amount:,.2f}'
     else:
         amount_string = ''
     return amount_string
 
 def get_ringgit_string(row):
-    total = row['AmountTotal']
-    if total:
-        total = float(total)
-        ringgit_string = num_to_word(total)
+    amount_total = row['AmountTotal']
+    if amount_total:
+        amount_total = float(amount_total)
+        ringgit_string = num_to_word(amount_total)
         return ringgit_string
 
 def num_to_word(num):
