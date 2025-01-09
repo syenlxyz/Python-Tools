@@ -86,7 +86,7 @@ def run():
         finalize=lambda bar: bar.text(f'Generating Voucher: done'),
         **options
     )
-
+    
     for file_path in results:
         results.text(f'Generating Voucher: {file_path.name}')
         table = get_table(file_path)
