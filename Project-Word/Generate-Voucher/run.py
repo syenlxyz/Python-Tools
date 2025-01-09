@@ -101,8 +101,7 @@ def run():
             create_voucher(template, data, target_path)
 
 def get_table(file_path):
-    df = pd.read_excel(file_path)
-    df = df.fillna('')
+    df = pd.read_excel(file_path, na_filter=False)
     
     df['Date'] = df.apply(lambda row: get_date_string(row), axis='columns')
     df['Voucher'] = df.apply(lambda row: get_voucher_string(row), axis='columns')
@@ -116,7 +115,6 @@ def get_table(file_path):
         df['Amount' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Amount', index + 1), axis='columns')
         df['Debit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Debit', index + 1), axis='columns')
         df['Credit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Credit', index + 1), axis='columns')
-    
     
     df['Ringgit'] = df.apply(lambda row: get_ringgit_string(row), axis='columns')
     df['AccountTotal'] = df.apply(lambda row: get_account_string(row, 'Total'), axis='columns')
