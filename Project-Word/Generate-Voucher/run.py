@@ -145,9 +145,15 @@ def get_account_string(row, index):
     voucher_type = row['Type']
     if not account.isna():
         if voucher_type == 'PV':
-            account_string = f'DR {account}'
+            if index == 'Total':
+                account_string = f'CR {account}'
+            else:
+                account_string = f'DR {account}'
         if voucher_type == 'RV':
-            account_string = f'CR {account}'
+            if index == 'Total':
+                account_string = f'DR {account}'
+            else:
+                account_string = f'CR {account}'
         if voucher_type == 'JV':
             debit = row['Debit' + index]
             credit = row['Crebit' + index]
