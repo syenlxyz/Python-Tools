@@ -59,10 +59,17 @@ def run():
         shutil.rmtree(str(output_path))
         output_path.mkdir()
     
-    template_path = Path.cwd() / 'template.docx'
-    if not template_path.exists():
-        print(f'{template_path.name} does not exist')
-        return None
+    journal_voucher = Path.cwd() / 'journal-voucher.docx'
+    if not journal_voucher.exists():
+        print(f'{journal_voucher.name} does not exist')
+    
+    payment_voucher = Path.cwd() / 'payment-voucher.docx'
+    if not payment_voucher.exists():
+        print(f'{payment_voucher.name} does not exist')
+    
+    receipt_voucher = Path.cwd() / 'receipt-voucher.docx'
+    if not receipt_voucher.exists():
+        print(f'{receipt_voucher.name} does not exist')
     
     options = {
         'length': 70,
@@ -76,19 +83,25 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text(f'Creating Payment Voucher: done'),
+        finalize=lambda bar: bar.text(f'Generating Voucher: done'),
         **options
     )
 
     for file_path in results:
-        results.text(f'Creating Payment Voucher: {file_path.name}')
+        results.text(f'Generating Voucher: {file_path.name}')
         table = get_table(file_path)
         for index, data in enumerate(table):
+            if data['Type'] == 'JV':
+                template = journal_voucher
+            if data['Type'] == 'PV':
+                template = payment_voucher
+            if data['Type'] == 'RV':
+                template = receipt_voucher
             target_path = output_path / f'{file_path.stem}-{index + 1}.docx'
-            create_voucher(template_path, target_path, data)
+            create_voucher(template, data, target_path)
 
-def create_voucher(template_path, target_path, data):
-    doc = Document(template_path)
+def create_voucher(template, data, target_path):
+    doc = Document(template)
     table = doc.tables[0]
     for row in table.rows:
         for item in row.cells:
@@ -107,7 +120,7 @@ def create_voucher(template_path, target_path, data):
 def get_table(file_path):
     df = pd.read_excel(file_path)
     
-    amounts = ['Amount' + str(i + 1) for i in range(8)]
+    amounts = ['Amount' + str(i + 1) for i in range(12)]
     for index, amount in enumerate(amounts):
         if index == 0:
             df['Total'] = df[amount]
