@@ -102,48 +102,48 @@ def run():
 
 def get_table(file_path):
     df = pd.read_excel(file_path)
+    df = df.fillna('')
     
     df['Date'] = df.apply(lambda row: get_date_string(row), axis='columns')
     df['Voucher'] = df.apply(lambda row: get_voucher_string(row), axis='columns')
     
     for index in range(12):
-        df['Acocunt' + str(index + 1)] = df.apply(lambda row: get_account_string(row, index + 1), axis='columns')
+        df['Account' + str(index + 1)] = df.apply(lambda row: get_account_string(row, index + 1), axis='columns')
         df['Particular' + str(index + 1)] = df.apply(lambda row: get_particular_string(row, index + 1), axis='columns')
         df['AmountTotal'] = df.apply(lambda row: get_amount_total(row, 'Amount', index + 1), axis='columns')
         df['DebitTotal'] = df.apply(lambda row: get_amount_total(row, 'Debit', index + 1), axis='columns')
         df['CreditTotal'] = df.apply(lambda row: get_amount_total(row, 'Credit', index + 1), axis='columns')
-        df['Amount' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Amount', index + 1), axis='columns')
-        df['Debit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Debit', index + 1), axis='columns')
-        df['Credit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Credit', index + 1), axis='columns')
+        #df['Amount' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Amount', index + 1), axis='columns')
+        #df['Debit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Debit', index + 1), axis='columns')
+        #df['Credit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Credit', index + 1), axis='columns')
     
     df['Ringgit'] = df.apply(lambda row: get_account_string, axis='columns')
-    df['AmountTotal'] = df.apply(lambda row: get_amount_string(row, 'Amount', 'Total'), axis='columns')
-    df['DebitTotal'] = df.apply(lambda row: get_amount_string(row, 'Debit', 'Total'), axis='columns')
-    df['CreditTotal'] = df.apply(lambda row: get_amount_string(row, 'Credit', 'Total'), axis='columns')
+    #df['AmountTotal'] = df.apply(lambda row: get_amount_string(row, 'Amount', 'Total'), axis='columns')
+    #df['DebitTotal'] = df.apply(lambda row: get_amount_string(row, 'Debit', 'Total'), axis='columns')
+    #df['CreditTotal'] = df.apply(lambda row: get_amount_string(row, 'Credit', 'Total'), axis='columns')
     
-    df = df.fillna('')
     table = df.to_dict('records')
     return table
 
 def get_date_string(row):
-    day = row['Day'].zfill(2)
-    month = row['Month'].zfill(2)
-    year = row['Year']
+    day = str(row['Day']).zfill(2)
+    month = str(row['Month']).zfill(2)
+    year = str(row['Year'])
     date_string = '/'.join([day, month, year])
     return date_string
 
 def get_voucher_string(row):
     bank = row['Bank']
     voucher_type = row['Type']
-    sequence = row['Sequence'].zfill(2)
-    month = row['Month'].zfill(2)
+    sequence = str(row['Sequence']).zfill(2)
+    month = str(row['Month']).zfill(2)
     voucher_string = f'{bank} {voucher_type} {sequence}/{month}'
     return voucher_string
 
 def get_account_string(row, index):
-    account = row['Account' + index]
+    account = row['Account' + str(index)]
     voucher_type = row['Type']
-    if not account.isna():
+    if account:
         if voucher_type == 'PV':
             if index == 'Total':
                 account_string = f'CR {account}'
@@ -155,44 +155,51 @@ def get_account_string(row, index):
             else:
                 account_string = f'CR {account}'
         if voucher_type == 'JV':
-            debit = row['Debit' + index]
-            credit = row['Crebit' + index]
-            if not debit.isna():
+            debit = row['Debit' + str(index)]
+            credit = row['Crebit' + str(index)]
+            if debit:
                 account_string = f'DR {account}'
-            if not credit.isna():
+            if credit:
                 account_string = f'CR {account}'
-        return account_string
+    else:
+        account_string = ''
+    return account_string
 
 def get_particular_string(row, index):
-    description = row['Description' + index]
-    period = row['Period' + index]
-    if description.isna():
-        particular_string = ''
-    elif period.isna():
+    description = row['Description' + str(index)]
+    period = row['Period' + str(index)]
+    if description and period:
+        particular_string = f'{description} ({period})'
+    elif description:
         particular_string = description
     else:
-        particular_string = f'{description} ({period})'
+        particular_string = ''
     return particular_string
 
 def get_amount_total(row, name, index):
-    column = row[name + index]
+    column = row[name + str(index)]
     total = row[name + 'Total']
-    if not column.isna():
+    if column:
         if index == 1:
             amount_total = column
         else:
             amount_total = total + column
+    else:
+        amount_total = total
     return amount_total
 
 def get_amount_string(row, name, index):
-    column = row[name + index]
-    if not column.isna():
-        amount_string = f'{row:,.2f}'
-        return amount_string
+    column = row[name + str(index)]
+    if column:
+        #amount_string = f'{row:,.2f}'
+        amount_string = row
+    else:
+        amount_string = ''
+    return amount_string
 
 def get_ringgit_string(row):
     total = row['AmountTotal']
-    if not total.isna():
+    if total:
         ringgit_string = num_to_word(row)
         return ringgit_string
 
