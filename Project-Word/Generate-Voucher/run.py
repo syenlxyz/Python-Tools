@@ -113,14 +113,16 @@ def get_table(file_path):
         df['AmountTotal'] = df.apply(lambda row: get_amount_total(row, 'Amount', index + 1), axis='columns')
         df['DebitTotal'] = df.apply(lambda row: get_amount_total(row, 'Debit', index + 1), axis='columns')
         df['CreditTotal'] = df.apply(lambda row: get_amount_total(row, 'Credit', index + 1), axis='columns')
-        #df['Amount' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Amount', index + 1), axis='columns')
-        #df['Debit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Debit', index + 1), axis='columns')
-        #df['Credit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Credit', index + 1), axis='columns')
+        df['Amount' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Amount', index + 1), axis='columns')
+        df['Debit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Debit', index + 1), axis='columns')
+        df['Credit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Credit', index + 1), axis='columns')
     
-    df['Ringgit'] = df.apply(lambda row: get_account_string, axis='columns')
-    #df['AmountTotal'] = df.apply(lambda row: get_amount_string(row, 'Amount', 'Total'), axis='columns')
-    #df['DebitTotal'] = df.apply(lambda row: get_amount_string(row, 'Debit', 'Total'), axis='columns')
-    #df['CreditTotal'] = df.apply(lambda row: get_amount_string(row, 'Credit', 'Total'), axis='columns')
+    
+    df['Ringgit'] = df.apply(lambda row: get_ringgit_string(row), axis='columns')
+    df['AccountTotal'] = df.apply(lambda row: get_account_string(row, 'Total'), axis='columns')
+    df['AmountTotal'] = df.apply(lambda row: get_amount_string(row, 'Amount', 'Total'), axis='columns')
+    df['DebitTotal'] = df.apply(lambda row: get_amount_string(row, 'Debit', 'Total'), axis='columns')
+    df['CreditTotal'] = df.apply(lambda row: get_amount_string(row, 'Credit', 'Total'), axis='columns')
     
     table = df.to_dict('records')
     return table
@@ -191,8 +193,7 @@ def get_amount_total(row, name, index):
 def get_amount_string(row, name, index):
     column = row[name + str(index)]
     if column:
-        #amount_string = f'{row:,.2f}'
-        amount_string = row
+        amount_string = f'RM{column:,.2f}'
     else:
         amount_string = ''
     return amount_string
@@ -200,7 +201,8 @@ def get_amount_string(row, name, index):
 def get_ringgit_string(row):
     total = row['AmountTotal']
     if total:
-        ringgit_string = num_to_word(row)
+        total = float(total)
+        ringgit_string = num_to_word(total)
         return ringgit_string
 
 def num_to_word(num):
