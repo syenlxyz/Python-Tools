@@ -120,21 +120,27 @@ def create_voucher(template, data, target_path):
 def get_table(file_path):
     df = pd.read_excel(file_path)
     
-    amounts = ['Amount' + str(i + 1) for i in range(12)]
-    for index, amount in enumerate(amounts):
-        if index == 0:
-            df['Total'] = df[amount]
-        elif not df[amount].isna().sum():
-            df['Total'] = df['Total'] + df[amount]
-    df['Ringgit'] = df['Total'].apply(num_to_word)
+    df['Date'] = df[columns].apply(lambda row: get_date_string(row), axis='columns')
+    df['Voucher'] = df[columns].apply(lambda row: get_voucher_string(row), axis='columns')
     
-    df['Date'] = df['Date'].dt.strftime('%d/%m/%Y')
-    for amount in amounts:
-        if not df[amount].isna().sum():
-            df[amount] = df[amount].apply(lambda row: f'{row:,.2f}')
-    df['Total'] = df['Total'].apply(lambda row: f'{row:,.2f}')
+    columns = ['Amount', 'Debit', 'Credit']
+    for column in columns:
+        for index in range(12):
+            if not df[f'{column}{index + 1}'].isna().sum():
+                if index == 0:
+                    df[f'{column}Total'] = df[f'{column}{index + 1}']
+                else:
+                    df[f'{column}Total'] = df[f'{column}Total'] + df[f'{column}{index + 1}']
+                df[f'{column}{index + 1}'] = df[f'{column}{index + 1}'].apply(lambda row: f'{row:,.2f}')
+            else:
+                df[f'{column}Total'] = 0.0
+        df[f'{column}Total'] = df[f'{column}Total'].apply(lambda row: f'{row:,.2f}')
+    
+    for index in range(12):
+        df['Particular' + str(index + 1)] = df.apply(lambda row: get_particular_string(row, index + 1), axis='columns')
+    
+    df['Ringgit'] = df['AmountTotal'].apply(num_to_word)
     df = df.fillna('')
-    
     table = df.to_dict('records')
     return table
 
@@ -161,6 +167,32 @@ def num_to_word(num):
     elif power < 5:
         text = ' '.join([num_to_word(num // 1000 ** power), More_Than_Thousand[power], num_to_word(num % 1000 ** power)])
         return text
+
+def get_date_string(row):
+    day = row['Day'].zfill(2)
+    month = row['Month'].zfill(2)
+    year = row['Year']
+    date_string = '/'.join([day, month, year])
+    return date_string
+
+def get_voucher_string(row):
+    bank = row['Bank']
+    voucher_type = row['Type']
+    sequence = row['Sequence'].zfill(2)
+    month = row['Month'].zfill(2)
+    voucher_string = f'{bank} {voucher_type} {sequence}/{month}'
+    return voucher_string
+
+def get_particular_string(row, index):
+    description = row['Description' + index]
+    period = row['Period' + index]
+    if description.isna():
+        particular_string = ''
+    elif period.isna():
+        particular_string = description
+    else:
+        particular_string = f'{description} ({period})'
+    return particular_string
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
