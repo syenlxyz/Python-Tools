@@ -128,7 +128,7 @@ def get_table(file_path):
 def get_date_string(row):
     day = str(row['Day']).zfill(2)
     month = str(row['Month']).zfill(2)
-    year = str(row['Year'])
+    year = str(row['Year']).zfill(4)
     date_string = '/'.join([day, month, year])
     return date_string
 
