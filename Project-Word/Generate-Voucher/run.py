@@ -90,6 +90,7 @@ def run():
     for file_path in results:
         results.text(f'Generating Voucher: {file_path.name}')
         table = get_table(file_path)
+        num_digit = len(str(len(table)))
         for index, data in enumerate(table):
             if data['Type'] == 'JV':
                 template = journal_voucher
@@ -97,7 +98,7 @@ def run():
                 template = payment_voucher
             if data['Type'] == 'RV':
                 template = receipt_voucher
-            target_path = output_path / f'{file_path.stem}-{index + 1}.docx'
+            target_path = output_path / f'{file_path.stem}-{str(index + 1).zfill(num_digit)}.docx'
             create_voucher(template, data, target_path)
 
 def get_table(file_path):
