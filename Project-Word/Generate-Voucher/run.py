@@ -128,18 +128,22 @@ def get_table(file_path):
     return table
 
 def get_date_string(row):
-    day = str(row['Day']).zfill(2)
-    month = str(row['Month']).zfill(2)
-    year = str(row['Year']).zfill(4)
-    date_string = '/'.join([day, month, year])
+    date_string = row['Date']
+    if not date_string:
+        day = str(row['Day']).zfill(2)
+        month = str(row['Month']).zfill(2)
+        year = str(row['Year']).zfill(4)
+        date_string = '/'.join([day, month, year])
     return date_string
 
 def get_voucher_string(row):
-    bank = row['Bank']
-    voucher_type = row['Type']
-    sequence = str(row['Sequence']).zfill(2)
-    month = str(row['Month']).zfill(2)
-    voucher_string = f'{bank} {voucher_type} {sequence}/{month}'
+    voucher_string = row['Voucher']
+    if not voucher_string:
+        bank = row['Bank']
+        voucher_type = row['Type']
+        sequence = str(row['Sequence']).zfill(2)
+        month = str(row['Month']).zfill(2)
+        voucher_string = f'{bank} {voucher_type} {sequence}/{month}'
     return voucher_string
 
 def get_account_string(row, index):
