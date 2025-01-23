@@ -33,10 +33,8 @@ def run():
     file_list = list(input_path.glob('*.pdf'))
     if file_list:
         num_file = len(file_list)
-        num_top = num_file // 2 + 1
-        num_bottom = num_file // 2
-        top_list = [i * 2 for i in range(num_top)]
-        bottom_list = [i * 2 + 1 for i in range(num_bottom)]
+        top_list = [i * 2 for i in range(num_file // 2)]
+        bottom_list = [i * 2 + 1 for i in range(num_file // 2)]
         order_list = top_list + bottom_list
         index_list = [order_list.index(value) for value in range(num_file)]
         file_list = [file_list[index] for index in index_list]
@@ -59,10 +57,8 @@ def run():
         file_list = list(folder_path.glob('*.pdf'))
         if file_list:
             num_file = len(file_list)
-            num_top = num_file // 2 + 1
-            num_bottom = num_file // 2
-            top_list = [i * 2 for i in range(num_top)]
-            bottom_list = [i * 2 + 1 for i in range(num_bottom)]
+            top_list = [i * 2 for i in range(num_file // 2)]
+            bottom_list = [i * 2 + 1 for i in range(num_file // 2)]
             order_list = top_list + bottom_list
             index_list = [order_list.index(value) for value in range(num_file)]
             file_list = [file_list[index] for index in index_list]
