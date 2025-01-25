@@ -2,7 +2,7 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from pypdf import PdfWriter
-import shutil
+from send2trash import send2trash
 
 def run():
     input_path = Path.cwd() / 'input'
@@ -13,7 +13,7 @@ def run():
     if not output_path.is_dir():
         output_path.mkdir()
     else:
-        shutil.rmtree(str(output_path))
+        send2trash(output_path)
         output_path.mkdir()
     
     options = {
