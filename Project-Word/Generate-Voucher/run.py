@@ -2,9 +2,9 @@ from alive_progress import alive_it
 from datetime import datetime
 from docx import Document
 from pathlib import Path
+from send2trash import send2trash
 import pandas as pd
 import re
-import shutil
 
 Less_Than_Twenty = {
     0: '',
@@ -56,7 +56,7 @@ def run():
     if not output_path.is_dir():
         output_path.mkdir()
     else:
-        shutil.rmtree(str(output_path))
+        send2trash(output_path)
         output_path.mkdir()
     
     journal_voucher = Path.cwd() / 'journal-voucher.docx'
