@@ -1,6 +1,7 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
+from send2trash import send2trash
 from win32com.client import Dispatch
 import shutil
 
@@ -13,7 +14,7 @@ def run():
     if not output_path.is_dir():
         shutil.copytree(str(input_path), str(output_path))
     else:
-        shutil.rmtree(str(output_path))
+        send2trash(output_path)
         shutil.copytree(str(input_path), str(output_path))
     
     options = {
