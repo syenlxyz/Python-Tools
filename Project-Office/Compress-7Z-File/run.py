@@ -1,7 +1,7 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-import shutil
+from send2trash import send2trash
 import subprocess
 
 def run():
@@ -13,7 +13,7 @@ def run():
     if not output_path.is_dir():
         output_path.mkdir()
     else:
-        shutil.rmtree(str(output_path))
+        send2trash(output_path)
         output_path.mkdir()
     
     options = {
