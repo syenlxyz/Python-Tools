@@ -1,21 +1,19 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
+from send2trash import send2trash
 import shutil
 
 def run():
     input_path = Path.cwd() / 'input'
-    output_path = Path.cwd() / 'output'
-    
     if not input_path.is_dir():
         input_path.mkdir()
     
+    output_path = Path.cwd() / 'output'
     if not output_path.is_dir():
         output_path.mkdir()
-    
-    file_list = list(output_path.iterdir())
-    if file_list:
-        shutil.rmtree(output_path)
+    else:
+        send2trash(output_path)
         output_path.mkdir()
     
     options = {
