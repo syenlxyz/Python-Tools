@@ -1,8 +1,10 @@
 from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
-from pytube import YouTube, Playlist
+from pytubefix import YouTube, Playlist
 from urllib.parse import urlparse, parse_qs
+import json
+import subprocess
 
 def run():
     output_path = Path.cwd() / 'output'
@@ -30,7 +32,7 @@ def run():
     
     for url in results:
         results.text(f'Downloading YouTube MP4 (Lite Version): {url}')
-        yt = YouTube(url)
+        yt = YouTube(url, use_po_token=True, po_token_verifier=po_token_verifier)
         yt.streams \
         .filter(progressive=True, file_extension='mp4') \
         .first() \
@@ -60,6 +62,12 @@ def get_playlist():
         else:
             print('Invalid URL. Please try again.')
     return playlist
+
+def po_token_verifier():
+    result = subprocess.run('node script/youtube-po-token-generator.js', capture_output=True)
+    data = json.loads(result.stdout)
+    po_token = tuple(data.values())
+    return po_token
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
