@@ -87,7 +87,7 @@ def get_playlist():
     return playlist
 
 def po_token_verifier():
-    result = subprocess.run('node script/youtube-po-token-generator.js', capture_output=True)
+    result = subprocess.run('node script.js', capture_output=True)
     data = json.loads(result.stdout)
     po_token = tuple(data.values())
     return po_token
