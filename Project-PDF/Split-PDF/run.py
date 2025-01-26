@@ -45,7 +45,7 @@ def run():
             target_path = folder_path / f'page{index + 1}.pdf'
             with open(target_path, 'wb') as file:
                 writer.write(file)
-        file_path.unlink()
+        send2trash(file_path)
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
