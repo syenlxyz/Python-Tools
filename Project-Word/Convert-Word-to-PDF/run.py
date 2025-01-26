@@ -46,7 +46,7 @@ def run():
         target_path = file_path.with_suffix('.pdf')
         wrd.ActiveDocument.SaveAs2(str(target_path), FileFormat=17)
         wrd.ActiveDocument.Close(SaveChanges=False)
-        file_path.unlink()
+        send2trash(file_path)
     wrd.Quit()
 
 if __name__ == '__main__':
