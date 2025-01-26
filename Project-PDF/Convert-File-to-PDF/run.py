@@ -55,7 +55,7 @@ def run():
         target_path = file_path.with_suffix('.pdf')
         pdDoc.Save(1, target_path)
         avDoc.Close(bNoSave=True)
-        file_path.unlink()
+        send2trash(file_path)
     
     process_list = list(psutil.process_iter())
     for process in process_list:
