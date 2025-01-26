@@ -2,6 +2,7 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from pypdf import PdfReader, PdfWriter
+from send2trash import send2trash
 from win32com.client import Dispatch
 from win32print import GetDefaultPrinter, OpenPrinter, GetPrinter
 import psutil
@@ -72,7 +73,7 @@ def run():
             params['nLastPage'] = num_page
             avDoc.PrintPagesEx(**params)
             avDoc.Close(bNoSave=True)
-            temp_path.unlink()
+            send2trash(temp_path)
         else:
             avDoc.Open(file_path, file_path)
             params['nLastPage'] = num_page - 1
