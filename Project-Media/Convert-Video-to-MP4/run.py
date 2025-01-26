@@ -43,7 +43,7 @@ def run():
         results.text(f'Converting Video to MP4: {file_path.name}')
         target_path = file_path.with_suffix('.mp4')
         subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{file_path}" "{target_path}"')
-        file_path.unlink()
+        send2trash(file_path)
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
