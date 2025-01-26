@@ -45,7 +45,7 @@ def run():
         target_path = file_path.with_suffix('.txt')
         with open(target_path, 'w') as file:
             file.write(text)
-        file_path.unlink()
+        send2trash(file_path)
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
