@@ -2,6 +2,7 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from pytubefix import YouTube, Playlist
+from send2trash import send2trash
 from urllib.parse import urlparse, parse_qs
 import json
 import subprocess
@@ -43,7 +44,7 @@ def run():
         )
         output_file = audio_file.with_suffix('.mp3')
         subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{audio_file}" "{output_file}"')
-        audio_file.unlink()
+        send2trash(audio_file)
 
 def get_playlist():
     playlist = []
