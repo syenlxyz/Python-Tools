@@ -27,12 +27,12 @@ def run():
     results = alive_it(
         playlist,
         len(playlist),
-        finalize=lambda bar: bar.text('Downloading YouTube MP4: done'),
+        finalize=lambda bar: bar.text('Downloading YouTube: done'),
         **options
     )
     
     for url in results:
-        results.text(f'Downloading YouTube MP4: {url}')
+        results.text(f'Downloading YouTube: {url}')
         yt = YouTube(url, use_po_token=True, po_token_verifier=po_token_verifier)
         
         video_file = Path(
@@ -43,8 +43,9 @@ def run():
             .first()
             .download(output_path)
         )
-        video_file = video_file.replace(output_path / f'{video_file.stem} - Video Only{video_file.suffix}')
-        
+        video_output = video_file.with_suffix('.mp4')
+        subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{video_file}" "{video_output}"')
+
         audio_file = Path(
             yt.streams
             .filter(only_audio=True)
@@ -53,14 +54,8 @@ def run():
             .first()
             .download(output_path)
         )
-        audio_file = audio_file.replace(output_path / f'{audio_file.stem} - Audio Only{audio_file.suffix}')
-        
-        file_name = video_file.stem.replace(' - Video Only', '')
-        output_file = output_path / f'{file_name}.mp4'
-        subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{video_file}" -i "{audio_file}" "{output_file}"')
-        
-        send2trash(video_file)
-        send2trash(audio_file)
+        audio_output = audio_file.with_suffix('.mp3')
+        subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{audio_file}" "{audio_output}"')
 
 def get_playlist():
     playlist = []
