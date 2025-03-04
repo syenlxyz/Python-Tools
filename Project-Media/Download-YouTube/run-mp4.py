@@ -27,24 +27,26 @@ def run():
     results = alive_it(
         playlist,
         len(playlist),
-        finalize=lambda bar: bar.text('Downloading YouTube MP3: done'),
+        finalize=lambda bar: bar.text('Downloading YouTube MP4: done'),
         **options
     )
     
     for url in results:
-        results.text(f'Downloading YouTube MP3: {url}')
+        results.text(f'Downloading YouTube MP4: {url}')
         yt = YouTube(url, use_po_token=True, po_token_verifier=po_token_verifier)
-        audio_file = Path(
+        video_file = Path(
             yt.streams
-            .filter(only_audio=True)
-            .order_by('bitrate')
+            .filter(only_video=True)
+            .order_by('resolution')
             .desc()
             .first()
             .download(output_path)
         )
-        output_file = audio_file.with_suffix('.mp3')
-        subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{audio_file}" "{output_file}"')
-        send2trash(audio_file)
+        
+        output_file = video_file.with_suffix('.mp4')
+        video_file = video_file.replace(output_path / f'{video_file.stem}-Video_Only{video_file.suffix}')
+        subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{video_file}" "{output_file}"')
+        send2trash(video_file)
 
 def get_playlist():
     playlist = []
