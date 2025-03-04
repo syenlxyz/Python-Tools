@@ -2,6 +2,7 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from pytubefix import YouTube, Playlist
+from send2trash import send2trash
 from urllib.parse import urlparse, parse_qs
 import json
 import subprocess
@@ -26,12 +27,12 @@ def run():
     results = alive_it(
         playlist,
         len(playlist),
-        finalize=lambda bar: bar.text('Downloading YouTube: done'),
+        finalize=lambda bar: bar.text('Downloading YouTube (Raw Media): done'),
         **options
     )
     
     for url in results:
-        results.text(f'Downloading YouTube: {url}')
+        results.text(f'Downloading YouTube (Raw Media): {url}')
         yt = YouTube(url, use_po_token=True, po_token_verifier=po_token_verifier)
         
         video_file = Path(
@@ -43,8 +44,9 @@ def run():
             .download(output_path)
         )
         video_output = video_file.with_suffix('.mp4')
+        video_file = video_file.replace(output_path / f'{video_file.stem}-Video_Only{video_file.suffix}')
         subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{video_file}" "{video_output}"')
-
+        
         audio_file = Path(
             yt.streams
             .filter(only_audio=True)
@@ -54,7 +56,11 @@ def run():
             .download(output_path)
         )
         audio_output = audio_file.with_suffix('.mp3')
+        audio_file = audio_file.replace(output_path / f'{audio_file.stem}-Audio_Only{audio_file.suffix}')
         subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{audio_file}" "{audio_output}"')
+        
+        send2trash(video_file)
+        send2trash(audio_file)
 
 def get_playlist():
     playlist = []
