@@ -42,7 +42,9 @@ def run():
             .first()
             .download(output_path)
         )
+        
         output_file = audio_file.with_suffix('.mp3')
+        audio_file = audio_file.replace(output_path / f'{audio_file.stem}-Audio_Only{audio_file.suffix}')
         subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{audio_file}" "{output_file}"')
         send2trash(audio_file)
 
