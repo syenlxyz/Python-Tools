@@ -2,7 +2,6 @@ from alive_progress import alive_it
 from datetime import datetime
 from pathlib import Path
 from pytubefix import YouTube, Playlist
-from send2trash import send2trash
 from urllib.parse import urlparse, parse_qs
 import json
 import subprocess
