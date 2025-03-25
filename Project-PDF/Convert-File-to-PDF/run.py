@@ -55,12 +55,14 @@ def run():
         target_path = file_path.with_suffix('.pdf')
         pdDoc.Save(1, target_path)
         avDoc.Close(bNoSave=True)
-        send2trash(file_path)
     
     process_list = list(psutil.process_iter())
     for process in process_list:
         if process.name() == 'Acrobat.exe':
             process.terminate()
+    
+    for file_path in file_list:
+        send2trash(file_path)
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
