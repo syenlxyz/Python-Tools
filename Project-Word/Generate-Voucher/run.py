@@ -93,7 +93,8 @@ def run():
         num_digit = len(str(len(table)))
         for index, data in enumerate(table):
             if data['Type'] == 'JV':
-                template = journal_voucher
+                #template = journal_voucher
+                pass
             if data['Type'] == 'PV':
                 template = payment_voucher
             if data['Type'] == 'RV':
@@ -108,21 +109,21 @@ def get_table(file_path):
     df['Voucher'] = df.apply(lambda row: get_voucher_string(row), axis='columns')
     df['Reference'] = df['Reference'].apply(lambda row: str(row).zfill(6) if row else row)
     
-    for index in range(12):
+    for index in range(8):
         df['Account' + str(index + 1)] = df.apply(lambda row: get_account_string(row, index + 1), axis='columns')
         df['Particular' + str(index + 1)] = df.apply(lambda row: get_particular_string(row, index + 1), axis='columns')
         df['AmountTotal'] = df.apply(lambda row: get_amount_total(row, 'Amount', index + 1), axis='columns')
-        df['DebitTotal'] = df.apply(lambda row: get_amount_total(row, 'Debit', index + 1), axis='columns')
-        df['CreditTotal'] = df.apply(lambda row: get_amount_total(row, 'Credit', index + 1), axis='columns')
+        #df['DebitTotal'] = df.apply(lambda row: get_amount_total(row, 'Debit', index + 1), axis='columns')
+        #df['CreditTotal'] = df.apply(lambda row: get_amount_total(row, 'Credit', index + 1), axis='columns')
         df['Amount' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Amount', index + 1), axis='columns')
-        df['Debit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Debit', index + 1), axis='columns')
-        df['Credit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Credit', index + 1), axis='columns')
+        #df['Debit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Debit', index + 1), axis='columns')
+        #df['Credit' + str(index + 1)] = df.apply(lambda row: get_amount_string(row, 'Credit', index + 1), axis='columns')
     
     df['Ringgit'] = df.apply(lambda row: get_ringgit_string(row), axis='columns')
     df['AccountTotal'] = df.apply(lambda row: get_account_string(row, 'Total'), axis='columns')
     df['AmountTotal'] = df.apply(lambda row: get_amount_string(row, 'Amount', 'Total'), axis='columns')
-    df['DebitTotal'] = df.apply(lambda row: get_amount_string(row, 'Debit', 'Total'), axis='columns')
-    df['CreditTotal'] = df.apply(lambda row: get_amount_string(row, 'Credit', 'Total'), axis='columns')
+    #df['DebitTotal'] = df.apply(lambda row: get_amount_string(row, 'Debit', 'Total'), axis='columns')
+    #df['CreditTotal'] = df.apply(lambda row: get_amount_string(row, 'Credit', 'Total'), axis='columns')
     
     table = df.to_dict('records')
     return table
