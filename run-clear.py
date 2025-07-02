@@ -1,7 +1,6 @@
 from datetime import datetime
 from pathlib import Path
 from send2trash import send2trash
-import shutil
 
 def run():
     path_list = list(Path.cwd().glob('**/*'))
@@ -10,6 +9,7 @@ def run():
         if path.is_dir() and path.name in name_list:
             print(path)
             send2trash(path)
+            path.mkdir()
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
