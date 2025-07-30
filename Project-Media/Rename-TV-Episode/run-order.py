@@ -84,44 +84,10 @@ def get_season(folder_path):
     return season
 
 def get_episodes(file_list):
-    episodes = []
-    for file_path in file_list:
-        keywords = ['.5', 'OVA']
-        for keyword in keywords:
-            if keyword in file_path.stem:
-                episode = None
-                break
-        else:
-            episode = get_episode(file_path)
-        episodes.append(episode)
-    
-    start = min([int(episode) for episode in episodes if episode])
-    if start > 1:
-        episodes = [ifelse(episode, str(int(episode) - start + 1), episode) for episode in episodes]
-    
-    num_digit = max(max([len(episode) for episode in episodes if episode]), 2)
-    episodes = [ifelse(episode, episode.zfill(num_digit), episode) for episode in episodes]
+    num_file = len(file_list)
+    num_digit = len(str(num_file + 1))
+    episodes = [str(index + 1).zfill(num_digit) for index in range(num_file)]
     return episodes
-
-def get_episode(file_path):
-    patterns = [
-        r'\[E\d+\]',
-        r'\[\d+(v\d)?\]',
-        r'\[\d+\s?END\]',
-        r'\[\d+_\d+\]',
-        r'-\s?\d+',
-        r'\.\d+',
-        r'第\d+话',
-        r'第\d+話'
-    ]
-    
-    for pattern in patterns:
-        result = re.search(pattern, file_path.stem)
-        if result:
-            text = result.group()
-            search = re.search(r'\d+', text)
-            episode = search.group()
-            return episode
 
 def ifelse(test_expression, x, y):
     if test_expression:
