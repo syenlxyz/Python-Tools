@@ -85,7 +85,7 @@ def get_season(folder_path):
 
 def get_episodes(file_list):
     num_file = len(file_list)
-    num_digit = len(str(num_file + 1))
+    num_digit = max(len(str(num_file + 1)), 2)
     episodes = [str(index + 1).zfill(num_digit) for index in range(num_file)]
     return episodes
 
