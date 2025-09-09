@@ -41,18 +41,51 @@ def run():
         'APPROVE': 'Wong Gin Poh',
         'DATE': '06/01/2025'
     }
-
+    
     for file_path in results:
         results.text(f'Generating MSPO: {file_path.name}')
         doc = Document(file_path)
         for paragraph in doc.paragraphs:
-            pattern = r'\$\{(.*?)\}'
+            #pattern = r'\$\{(.*?)\}'
+            pattern = r'\(\$\{(.*?)\}\)'
             result = re.findall(pattern, paragraph.text)
             if result:
                 key = result[0]
                 value = data[key]
-                run = paragraph.runs[0]
-                run.text = run.text.replace('${%s}' % (key), value)
+                paragraph.text = paragraph.text.replace('${%s}' % (key), value)
+
+        for table in doc.tables:
+            for row in table.rows:
+                for cell in row.cells:
+                    #pattern = r'\$\{(.*?)\}'
+                    pattern = r'\(\$\{(.*?)\}\)'
+                    result = re.findall(pattern, cell.text)
+                    if result:
+                        key = result[0]
+                        value = data[key]
+                        cell.text = cell.text.replace('${%s}' % (key), value)
+
+        for section in doc.sections:
+            header = section.header
+            for paragraph in header.paragraphs:
+                #pattern = r'\$\{(.*?)\}'
+                pattern = r'\(\$\{(.*?)\}\)'
+                result = re.findall(pattern, paragraph.text)
+                if result:
+                    key = result[0]
+                    value = data[key]
+                    paragraph.text = paragraph.text.replace('${%s}' % (key), value)
+            
+            for table in header.tables:
+                for row in table.rows:
+                    for cell in row.cells:
+                        #pattern = r'\$\{(.*?)\}'
+                        pattern = r'\(\$\{(.*?)\}\)'
+                        result = re.findall(pattern, cell.text)
+                        if result:
+                            key = result[0]
+                            value = data[key]
+                            cell.text = cell.text.replace('${%s}' % (key), value)
         doc.save(file_path)
 
 if __name__ == '__main__':
