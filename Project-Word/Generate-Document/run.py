@@ -1,10 +1,36 @@
 from alive_progress import alive_it
 from datetime import datetime
-from docx import Document
 from pathlib import Path
 from send2trash import send2trash
+from win32com.client import Dispatch
 import re
+import psutil
 import shutil
+
+WdFindWrap  = {
+    'wdFindAsk': 2,
+    'wdFindContinue': 1,
+    'wdFindStop': 0
+}
+
+WdReplace = {
+    'wdReplaceAll': 2,
+    'wdReplaceNone': 0,
+    'wdReplaceOne': 1
+}
+
+WdHeaderFooterIndex = {
+    'wdHeaderFooterEvenPages': 3,
+    'wdHeaderFooterFirstPage': 2,
+    'wdHeaderFooterPrimary': 1,
+}
+
+WdSaveFormat = {
+    'wdFormatDocument': 0,
+    'wdFormatHTML': 8,
+    'wdFormatDocumentDefault': 16,
+    'wdFormatPDF': 17
+}
 
 def run():
     input_path = Path.cwd() / 'input'
@@ -30,7 +56,7 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text(f'Generating MSPO: done'),
+        finalize=lambda bar: bar.text(f'Generating Document: done'),
         **options
     )
     
@@ -42,51 +68,40 @@ def run():
         'DATE': '06/01/2025'
     }
     
+    wrd = Dispatch('Word.Application')
+    wrd.Visible = False
     for file_path in results:
-        results.text(f'Generating MSPO: {file_path.name}')
-        doc = Document(file_path)
-        for paragraph in doc.paragraphs:
-            #pattern = r'\$\{(.*?)\}'
-            pattern = r'\(\$\{(.*?)\}\)'
-            result = re.findall(pattern, paragraph.text)
-            if result:
-                key = result[0]
-                value = data[key]
-                paragraph.text = paragraph.text.replace('${%s}' % (key), value)
-
-        for table in doc.tables:
-            for row in table.rows:
-                for cell in row.cells:
-                    #pattern = r'\$\{(.*?)\}'
-                    pattern = r'\(\$\{(.*?)\}\)'
-                    result = re.findall(pattern, cell.text)
-                    if result:
-                        key = result[0]
-                        value = data[key]
-                        cell.text = cell.text.replace('${%s}' % (key), value)
-
-        for section in doc.sections:
-            header = section.header
-            for paragraph in header.paragraphs:
-                #pattern = r'\$\{(.*?)\}'
-                pattern = r'\(\$\{(.*?)\}\)'
-                result = re.findall(pattern, paragraph.text)
-                if result:
-                    key = result[0]
-                    value = data[key]
-                    paragraph.text = paragraph.text.replace('${%s}' % (key), value)
-            
-            for table in header.tables:
-                for row in table.rows:
-                    for cell in row.cells:
-                        #pattern = r'\$\{(.*?)\}'
-                        pattern = r'\(\$\{(.*?)\}\)'
-                        result = re.findall(pattern, cell.text)
-                        if result:
-                            key = result[0]
-                            value = data[key]
-                            cell.text = cell.text.replace('${%s}' % (key), value)
-        doc.save(file_path)
+        results.text(f'Generating Document: {file_path.name}')
+        try:
+            wrd.Documents.Open(str(file_path))
+        except:
+            process_list = list(psutil.process_iter())
+            for process in process_list:
+                if process.name() == 'WinWord.exe':
+                    process.terminate()
+            wrd.Documents.Open(str(file_path))
+        
+        keys = list(data.keys())
+        for key in keys:
+            old = f'${{{key}}}'
+            new = data[key]
+            params = {
+                'FindText': old,
+                'MatchCase': False,
+                'MatchWholeWord': True,
+                'MatchWildcards': False,
+                'MatchSoundsLike': False,
+                'MatchAllWordForms': False,
+                'Forward': True,
+                'Wrap': WdFindWrap['wdFindContinue'],
+                'Format': True,
+                'ReplaceWith': new,
+                'Replace': WdReplace['wdReplaceAll']
+            }
+            wrd.Selection.Find.Execute(**params)
+            wrd.ActiveDocument.Sections(1).Headers(WdHeaderFooterIndex['wdHeaderFooterPrimary']).Range.Find.Execute(**params)
+        wrd.ActiveDocument.Close(SaveChanges=True)
+    wrd.Quit()
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
