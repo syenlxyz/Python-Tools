@@ -83,7 +83,7 @@ def run():
         
         keys = list(data.keys())
         for key in keys:
-            old = f'${{{key}}}'
+            old = f'${{key}}'
             new = data[key]
             params = {
                 'FindText': old,
