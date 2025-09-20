@@ -29,7 +29,7 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Printing PDF: done'),
+        finalize=lambda bar: bar.text('Processing: done'),
         **options
     )
     
@@ -58,7 +58,7 @@ def run():
     app.Hide()
     avDoc = Dispatch('AcroExch.AVDoc')
     for file_path in results:
-        results.text(f'Printing PDF: {file_path.name}')
+        results.text(f'Processing: {file_path.name}')
         avDoc.Open(file_path, file_path)
         pdDoc = avDoc.GetPDDoc()
         num_page = pdDoc.GetNumPages()
@@ -79,7 +79,9 @@ def run():
             process.terminate()
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
