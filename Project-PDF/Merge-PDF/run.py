@@ -35,12 +35,12 @@ def run():
         results = alive_it(
             file_list, 
             len(file_list), 
-            finalize=lambda bar: bar.text(f'Merging PDF for {input_path.name}: done'),
+            finalize=lambda bar: bar.text(f'Processing {input_path.name}: done'),
             **options
         )
         merger = PdfWriter()
         for file_path in results:
-            results.text(f'Merging PDF for {input_path.name}: {file_path.name}')
+            results.text(f'Processing {input_path.name}: {file_path.name}')
             merger.append(file_path)
         target_path = output_path / input_path.with_suffix('.pdf').name
         merger.write(target_path)
@@ -53,19 +53,21 @@ def run():
         results = alive_it(
             file_list, 
             len(file_list), 
-            finalize=lambda bar: bar.text(f'Merging PDF for {folder_path.name}: done'),
+            finalize=lambda bar: bar.text(f'Processing {folder_path.name}: done'),
             **options
         )
         merger = PdfWriter()
         for file_path in results:
-            results.text(f'Merging PDF for {folder_path.name}: {file_path.name}')
+            results.text(f'Processing {folder_path.name}: {file_path.name}')
             merger.append(file_path)
         target_path = output_path / folder_path.with_suffix('.pdf').name
         merger.write(target_path)
         merger.close()
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
