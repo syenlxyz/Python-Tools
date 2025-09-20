@@ -29,12 +29,12 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Splitting PDF: done'),
+        finalize=lambda bar: bar.text('Processing: done'),
         **options
     )
     
     for file_path in results:
-        results.text(f'Splitting PDF: {file_path.name}')
+        results.text(f'Processing: {file_path.name}')
         folder_path = file_path.with_suffix('')
         folder_path.mkdir()
         reader = PdfReader(file_path)
@@ -48,7 +48,9 @@ def run():
         send2trash(file_path)
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
