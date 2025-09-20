@@ -28,13 +28,13 @@ def run():
     results = alive_it(
         folder_list,
         len(folder_list),
-        finalize=lambda bar: bar.text('Renaming TV Subtitle: done'),
+        finalize=lambda bar: bar.text('Processing: done'),
         **options
     )
     
     for folder_path in results:
         folder_name = folder_path.name
-        results.text(f'Renaming TV Subtitle: {folder_name}')
+        results.text(f'Processing: {folder_name}')
         file_list = list(folder_path.iterdir())
         for file_path in file_list:
             file_name = file_path.name.replace('_', '-')
@@ -42,7 +42,9 @@ def run():
             shutil.copy2(file_path, new_path)
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
