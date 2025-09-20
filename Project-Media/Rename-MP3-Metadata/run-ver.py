@@ -20,18 +20,20 @@ def run():
     results = alive_it(
         file_list,
         len(file_list),
-        finalize=lambda bar: bar.text('Renaming MP3 Metadata: done'),
+        finalize=lambda bar: bar.text('Processing: done'),
         **options
     )
     
     for file_path in results:
-        results.text(f'Renaming MP3 Metadata: {file_path.name}')
+        results.text(f'Processing: {file_path.name}')
         file = File(file_path, easy=True)
         file['version'] = file_path.stem
         file.save()
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
