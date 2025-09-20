@@ -33,13 +33,13 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Organizing File: done'),
+        finalize=lambda bar: bar.text('Processing: done'),
         **options
     )
     
     suffix_list = []
     for file_path in results:
-        results.text(f'Organizing File: {file_path.name}')
+        results.text(f'Processing: {file_path.name}')
         suffix = file_path.suffix
         target_folder = output_path / suffix[1:]
         if suffix not in suffix_list:
@@ -49,7 +49,9 @@ def run():
         shutil.copy2(str(file_path), str(target_path))
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
