@@ -33,7 +33,7 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Printing Word (Odd Pages Only): done'),
+        finalize=lambda bar: bar.text('Processing: done'),
         **options
     )
     
@@ -61,7 +61,7 @@ def run():
     wrd.Visible = False
     wrd.Options.PrintReverse = True
     for file_path in results:
-        results.text(f'Printing Word (Odd Pages Only): {file_path.name}')
+        results.text(f'Processing: {file_path.name}')
         wrd.Documents.Open(str(file_path))
         wrd.ActiveDocument.PrintOut(**params)
         wrd.ActiveDocument.Close(SaveChanges=False)
@@ -69,7 +69,9 @@ def run():
     wrd.Quit()
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
