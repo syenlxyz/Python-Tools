@@ -36,11 +36,11 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text(f'Renaming File for {input_path.name}: done'),
+        finalize=lambda bar: bar.text(f'Processing {input_path.name}: done'),
         **options
     )
     for index, file_path in enumerate(results):
-        results.text(f'Renaming File {input_path.name}: {file_path.name}')
+        results.text(f'Processing {input_path.name}: {file_path.name}')
         num_file = len(file_list)
         num_digit = len(str(num_file))
         prefix = str(index + 1).zfill(num_digit)
@@ -52,11 +52,11 @@ def run():
         results = alive_it(
             file_list, 
             len(file_list), 
-            finalize=lambda bar: bar.text(f'Renaming File for {folder_path.relative_to(output_path)}: done'),
+            finalize=lambda bar: bar.text(f'Processing {folder_path.relative_to(output_path)}: done'),
             **options
         )
         for index, file_path in enumerate(results):
-            results.text(f'Renaming File for {folder_path.relative_to(output_path)}: {file_path.name}')
+            results.text(f'Processing {folder_path.relative_to(output_path)}: {file_path.name}')
             num_file = len(file_list)
             num_digit = len(str(num_file))
             prefix = str(index + 1).zfill(num_digit)
@@ -64,7 +64,9 @@ def run():
             file_path.rename(target_path)
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
