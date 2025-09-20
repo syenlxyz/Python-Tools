@@ -35,18 +35,20 @@ def run():
     results = alive_it(
         file_list,
         len(file_list),
-        finalize=lambda bar: bar.text('Converting Video to MP4: done'),
+        finalize=lambda bar: bar.text('Processing: done'),
         **options
     )
     
     for file_path in results:
-        results.text(f'Converting Video to MP4: {file_path.name}')
+        results.text(f'Processing: {file_path.name}')
         target_path = file_path.with_suffix('.mp4')
         subprocess.run(f'ffmpeg -hide_banner -loglevel quiet -i "{file_path}" "{target_path}"')
         send2trash(file_path)
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
