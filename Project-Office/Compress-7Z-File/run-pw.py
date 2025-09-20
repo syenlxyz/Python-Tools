@@ -36,11 +36,11 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text(f'Compressing 7Z File with Password for {input_path.name}: done'),
+        finalize=lambda bar: bar.text(f'Processing {input_path.name}: done'),
         **options
     )
     for file_path in results:
-        results.text(f'Compressing 7Z File with Password for {input_path.name}: {file_path.name}')
+        results.text(f'Processing {input_path.name}: {file_path.name}')
         target_path = output_path / file_path.stem
         password = 'password'
         subprocess.run(f'7z a -bso0 -bsp0 -t7z -mhe=on -p{password} "{target_path}" "{file_path}"')
@@ -50,19 +50,21 @@ def run():
         results = alive_it(
             file_list, 
             len(file_list), 
-            finalize=lambda bar: bar.text(f'Compressing 7Z File with Password for {folder_path.name}: done'),
+            finalize=lambda bar: bar.text(f'Processing {folder_path.name}: done'),
             **options
         )
         
         for file_path in results:
-            results.text(f'Compressing 7Z File with Password for {folder_path.name}: {file_path.name}')
+            results.text(f'Processing {folder_path.name}: {file_path.name}')
             target_path = output_path / folder_path.name
             password = folder_path.name
             for file_path in file_list:
                 subprocess.run(f'7z a -bso0 -bsp0 -t7z -mhe=on -p{password} "{target_path}" "{file_path}"')
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
