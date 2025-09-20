@@ -40,7 +40,7 @@ def run():
     suffix_list = []
     for file_path in results:
         results.text(f'Processing: {file_path.name}')
-        suffix = file_path.suffix
+        suffix = file_path.suffix.lower()
         target_folder = output_path / suffix[1:]
         if suffix not in suffix_list:
             target_folder.mkdir()
