@@ -34,17 +34,19 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text('Extracting File: done'),
+        finalize=lambda bar: bar.text('Processing: done'),
         **options
     )
     
     for file_path in results:
-        results.text(f'Extracting File: {file_path.name}')
+        results.text(f'Processing: {file_path.name}')
         target_path = output_path / file_path.stem
         subprocess.run(f'7z x -bso0 -bsp0 "{file_path}" -o"{target_path}"')
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
