@@ -83,12 +83,12 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text(f'Generating Voucher: done'),
+        finalize=lambda bar: bar.text(f'Processing: done'),
         **options
     )
     
     for file_path in results:
-        results.text(f'Generating Voucher: {file_path.name}')
+        results.text(f'Processing: {file_path.name}')
         table = get_table(file_path)
         num_digit = len(str(len(table)))
         for index, data in enumerate(table):
@@ -249,7 +249,9 @@ def create_voucher(template, data, target_path):
     doc.save(target_path)
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
