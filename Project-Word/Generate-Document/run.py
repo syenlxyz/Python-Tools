@@ -56,7 +56,7 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text(f'Generating Document: done'),
+        finalize=lambda bar: bar.text(f'Processing: done'),
         **options
     )
     
@@ -71,7 +71,7 @@ def run():
     wrd = Dispatch('Word.Application')
     wrd.Visible = False
     for file_path in results:
-        results.text(f'Generating Document: {file_path.name}')
+        results.text(f'Processing: {file_path.name}')
         try:
             wrd.Documents.Open(str(file_path))
         except:
@@ -104,7 +104,9 @@ def run():
     wrd.Quit()
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
