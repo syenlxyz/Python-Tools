@@ -26,12 +26,12 @@ def run():
     results = alive_it(
         playlist,
         len(playlist),
-        finalize=lambda bar: bar.text('Downloading YouTube MP4 (Lite Version): done'),
+        finalize=lambda bar: bar.text('Processing: done'),
         **options
     )
     
     for url in results:
-        results.text(f'Downloading YouTube MP4 (Lite Version): {url}')
+        results.text(f'Processing: {url}')
         yt = YouTube(url, use_po_token=True, po_token_verifier=po_token_verifier)
         yt.streams \
         .filter(progressive=True, file_extension='mp4') \
@@ -70,7 +70,9 @@ def po_token_verifier():
     return po_token
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
