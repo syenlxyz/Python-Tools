@@ -23,7 +23,9 @@ def run():
     wrd.Quit()
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
