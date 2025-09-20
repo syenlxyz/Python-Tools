@@ -37,11 +37,11 @@ def run():
     results = alive_it(
         file_list, 
         len(file_list), 
-        finalize=lambda bar: bar.text(f'Extracting File with Password for {input_path.name}: done'),
+        finalize=lambda bar: bar.text(f'Processing {input_path.name}: done'),
         **options
     )
     for file_path in results:
-        results.text(f'Extracting File with Password for {input_path.name}: {file_path.name}')
+        results.text(f'Processing {input_path.name}: {file_path.name}')
         target_path = output_path / file_path.stem
         password = 'password'
         subprocess.run(f'7z x -bso0 -bsp0 -p{password} "{file_path}" -o"{target_path}')
@@ -57,18 +57,20 @@ def run():
         results = alive_it(
             file_list, 
             len(file_list), 
-            finalize=lambda bar: bar.text(f'Extracting 7Z File with Password for {folder_path.name}: done'),
+            finalize=lambda bar: bar.text(f'Processing {folder_path.name}: done'),
             **options
         )
         
         for file_path in results:
-            results.text(f'Extracting 7Z File with Password for {folder_path.name}: {file_path.name}')
+            results.text(f'Processing {folder_path.name}: {file_path.name}')
             target_path = output_path / file_path.stem
             password = folder_path.name
             subprocess.run(f'7z x -bso0 -bsp0 -p{password} "{file_path}" -o"{target_path}')
 
 if __name__ == '__main__':
-    print(f'Running {Path(__file__).parent.name}')
+    package = Path(__file__).parent
+    module = Path(__file__)
+    print(f'Running {package.name}/{module.name}')
     start_time = datetime.now()
     run()
     end_time = datetime.now()
