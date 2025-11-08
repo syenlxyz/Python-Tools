@@ -61,11 +61,17 @@ def run():
     )
     
     data = {
-        'COMPANY': 'SIN KEE CHIANG ESTATE SDN BHD',
-        'NUMBER': '257853-P',
-        'PREPARE': 'Poh Moi Hua',
-        'APPROVE': 'Wong Gin Poh',
-        'DATE': '06/01/2025'
+        'COMPANY_NAME': 'Erumas Sdn Bhd',
+        'COMPANY_NO': '(458675-W)',
+        'DATE': '06/01/2025',
+        'NAME_1': 'Marcel Bin Raptoh',
+        'NAME_2': 'Frederic Samin',
+        'NAME_3': 'Chiu Teng Ying',
+        'NAME_4': 'Daini Bin Doronsoi',
+        'POSITION_1': 'Estate Manager',
+        'POSITION_2': 'Assistant Manager',
+        'POSITION_3': 'Admin Clerk',
+        'POSITION_4': 'Internal Auditor'
     }
     
     wrd = Dispatch('Word.Application')
@@ -83,7 +89,7 @@ def run():
         
         keys = list(data.keys())
         for key in keys:
-            old = f'${{key}}'
+            old = f'<{key}>'
             new = data[key]
             params = {
                 'FindText': old,
