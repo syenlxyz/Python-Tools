@@ -1,32 +1,47 @@
 # Python-Tools
-1. Project-Media
+1. Project-7Zip
+    * [Archive-7z-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/Archive-7z-File)
+    * [Archive-7z-File-Password](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/Archive-7z-File-Password)
+    * [Archive-Zip-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/Archive-Zip-File)
+    * [Archive-Zip-File-Password](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/Archive-Zip-File-Password)
+    * [Extract-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/Extract-File)
+    * [Extract-File-Password](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/Extract-File-Password)
+    * [List-7z-Content](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/List-7z-Content)
+    * [List-Zip-Content](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/List-Zip-Content)
+    * [README.md](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/README.md)
+2. Project-Media
     * [Convert-Audio-to-MP3](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Convert-Audio-to-MP3)
     * [Convert-Video-to-MP4](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Convert-Video-to-MP4)
-    * [Download-YouTube-MP3](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Download-YouTube-MP3)
-    * [Download-YouTube-MP4](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Download-YouTube-MP4)
+    * [Download-YouTube](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Download-YouTube)
     * [Rename-MP3-Metadata](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Rename-MP3-Metadata)
     * [Rename-MP4-Metadata](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Rename-MP4-Metadata)
     * [Rename-TV-Episode](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Rename-TV-Episode)
     * [Rename-TV-Subtitle](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Rename-TV-Subtitle)
-2. Project-Office
-    * [Compress-7Z-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Compress-7Z-File)
-    * [Compress-ZIP-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Compress-ZIP-File)
+3. Project-Office
     * [Count-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Count-File)
-    * [Extract-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Extract-File)
     * [Merge-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Merge-File)
     * [Organize-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Organize-File)
     * [Rename-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Rename-File)
-3. Project-PDF
+4. Project-PDF
     * [Convert-File-to-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Convert-File-to-PDF)
     * [Count-PDF-Page](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Count-PDF-Page)
     * [Extract-PDF-Text](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Extract-PDF-Text)
     * [Merge-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Merge-PDF)
     * [Print-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Print-PDF)
     * [Split-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Split-PDF)
-4. Project-Word
+5. Project-PowerShell
+    * [Unblock-Files](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PowerShell/Unblock-Files)
+6. Project-WinWord
+    * [Change-Font](https://github.com/syenlxyz/Python-Tools/tree/main/Project-WinWord/Change-Font)
+    * [Change-Font-Color](https://github.com/syenlxyz/Python-Tools/tree/main/Project-WinWord/Change-Font-Color)
+    * [Change-Font-Name](https://github.com/syenlxyz/Python-Tools/tree/main/Project-WinWord/Change-Font-Name)
+    * [Change-Font-Size](https://github.com/syenlxyz/Python-Tools/tree/main/Project-WinWord/Change-Font-Size)
+    * [README.md](https://github.com/syenlxyz/Python-Tools/tree/main/Project-WinWord/README.md)
+7. Project-Word
     * [Convert-Word-to-DOC](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Convert-Word-to-DOC)
     * [Convert-Word-to-DOCX](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Convert-Word-to-DOCX)
     * [Convert-Word-to-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Convert-Word-to-PDF)
     * [Count-Word-Page](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Count-Word-Page)
+    * [Generate-Document](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Generate-Document)
     * [Generate-Voucher](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Generate-Voucher)
     * [Print-Word](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Print-Word)
