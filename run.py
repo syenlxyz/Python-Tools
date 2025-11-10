@@ -20,7 +20,12 @@ def run():
     for index, folder_path in enumerate(folder_list):
         lines.append(f'{index + 1}. {folder_path.name}')
         
-        file_list = list(folder_path.iterdir())
+        file_list = []
+        path_list = list(folder_path.iterdir())
+        for path in path_list:
+            if path.is_dir():
+                file_list.append(path)
+        
         results = alive_it(
             file_list, 
             len(file_list), 
