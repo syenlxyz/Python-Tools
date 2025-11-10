@@ -8,7 +8,6 @@
     * [Extract-File-Password](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/Extract-File-Password)
     * [List-7z-Content](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/List-7z-Content)
     * [List-Zip-Content](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/List-Zip-Content)
-    * [README.md](https://github.com/syenlxyz/Python-Tools/tree/main/Project-7Zip/README.md)
 2. Project-Media
     * [Convert-Audio-to-MP3](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Convert-Audio-to-MP3)
     * [Convert-Video-to-MP4](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Media/Convert-Video-to-MP4)
@@ -22,22 +21,26 @@
     * [Merge-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Merge-File)
     * [Organize-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Organize-File)
     * [Rename-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Rename-File)
-4. Project-PDF
+4. Project-Pathlib
+    * [Add-Prefix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Prefix)
+    * [Add-Prefix-Suffix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Prefix-Suffix)
+    * [Add-Suffix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Suffix)
+    * [Rename-File-Folder](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Rename-File-Folder)
+5. Project-PDF
     * [Convert-File-to-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Convert-File-to-PDF)
     * [Count-PDF-Page](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Count-PDF-Page)
     * [Extract-PDF-Text](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Extract-PDF-Text)
     * [Merge-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Merge-PDF)
     * [Print-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Print-PDF)
     * [Split-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Split-PDF)
-5. Project-PowerShell
-    * [Unblock-Files](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PowerShell/Unblock-Files)
-6. Project-WinWord
+6. Project-PowerShell
+    * [Unblock-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PowerShell/Unblock-File)
+7. Project-WinWord
     * [Change-Font](https://github.com/syenlxyz/Python-Tools/tree/main/Project-WinWord/Change-Font)
     * [Change-Font-Color](https://github.com/syenlxyz/Python-Tools/tree/main/Project-WinWord/Change-Font-Color)
     * [Change-Font-Name](https://github.com/syenlxyz/Python-Tools/tree/main/Project-WinWord/Change-Font-Name)
     * [Change-Font-Size](https://github.com/syenlxyz/Python-Tools/tree/main/Project-WinWord/Change-Font-Size)
-    * [README.md](https://github.com/syenlxyz/Python-Tools/tree/main/Project-WinWord/README.md)
-7. Project-Word
+8. Project-Word
     * [Convert-Word-to-DOC](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Convert-Word-to-DOC)
     * [Convert-Word-to-DOCX](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Convert-Word-to-DOCX)
     * [Convert-Word-to-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Word/Convert-Word-to-PDF)
