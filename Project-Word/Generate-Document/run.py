@@ -61,15 +61,16 @@ def run():
     )
     
     data = {
-        'COMPANY_NAME': 'Erumas Sdn Bhd',
-        'COMPANY_NO': '(458675-W)',
+        'COMPANY_NAME': 'Talu Jadi Plantations Sdn Bhd',
+        'COMPANY_NO': '(954378-X)',
         'DATE': '06/01/2025',
+        'Revision': '01',
         'NAME_1': 'Marcel Bin Raptoh',
-        'NAME_2': 'Frederic Samin',
+        'NAME_2': 'Hermily Bin Thaddeus',
         'NAME_3': 'Chiu Teng Ying',
         'NAME_4': 'Daini Bin Doronsoi',
         'POSITION_1': 'Estate Manager',
-        'POSITION_2': 'Assistant Manager',
+        'POSITION_2': 'Field Conductor',
         'POSITION_3': 'Admin Clerk',
         'POSITION_4': 'Internal Auditor'
     }
@@ -106,6 +107,7 @@ def run():
             }
             wrd.Selection.Find.Execute(**params)
             wrd.ActiveDocument.Sections(1).Headers(WdHeaderFooterIndex['wdHeaderFooterPrimary']).Range.Find.Execute(**params)
+            wrd.ActiveDocument.Sections(1).Footers(WdHeaderFooterIndex['wdHeaderFooterPrimary']).Range.Find.Execute(**params)
         wrd.ActiveDocument.Close(SaveChanges=True)
     wrd.Quit()
 
