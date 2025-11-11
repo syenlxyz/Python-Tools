@@ -23,10 +23,10 @@
     * [Rename-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Rename-File/run.py)
 4. **[Project-Pathlib](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib)**
     * [Add-Affix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Affix/run.py)
-    * [Add-Folder-Prefix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Folder-Prefix/run.py)
-    * [Add-Folder-Suffix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Folder-Suffix/run.py)
     * [Add-Prefix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Prefix/run.py)
+    * [Add-Prefix-Folder](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Prefix-Folder/run.py)
     * [Add-Suffix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Suffix/run.py)
+    * [Add-Suffix-Folder](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Suffix-Folder/run.py)
 5. **[Project-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF)**
     * [Convert-File-to-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Convert-File-to-PDF/run.py)
     * [Count-PDF-Page](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Count-PDF-Page/run.py)
