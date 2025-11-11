@@ -22,10 +22,10 @@
     * [Organize-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Organize-File/run.py)
     * [Rename-File](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Office/Rename-File/run.py)
 4. **[Project-Pathlib](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib)**
+    * [Add-Affix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Affix/run.py)
     * [Add-Folder-Prefix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Folder-Prefix/run.py)
     * [Add-Folder-Suffix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Folder-Suffix/run.py)
     * [Add-Prefix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Prefix/run.py)
-    * [Add-Prefix-Suffix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Prefix-Suffix/run.py)
     * [Add-Suffix](https://github.com/syenlxyz/Python-Tools/tree/main/Project-Pathlib/Add-Suffix/run.py)
 5. **[Project-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF)**
     * [Convert-File-to-PDF](https://github.com/syenlxyz/Python-Tools/tree/main/Project-PDF/Convert-File-to-PDF/run.py)
