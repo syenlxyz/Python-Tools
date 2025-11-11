@@ -41,7 +41,7 @@ def run():
         for file_path in results:
             results.text(f'Processing {folder_path.name}: {file_path.name}')
             prefix = f'{folder_path.name}_'
-            target_path = folder_path / f'{prefix}{file_path.name}'
+            target_path = folder_path / f'{prefix}{file_path.stem}{file_path.suffix}'
             file_path.rename(target_path)
 
 if __name__ == '__main__':
