@@ -7,9 +7,11 @@ def run():
     for path in path_list:
         name_list = ['input', 'output']
         if path.is_dir() and path.name in name_list:
-            print(path)
-            send2trash(path)
-            path.mkdir()
+            file_list = list(path.iterdir())
+            if file_list:
+                print(path)
+                send2trash(path)
+                path.mkdir()
 
 if __name__ == '__main__':
     print(f'Running {Path(__file__).parent.name}')
