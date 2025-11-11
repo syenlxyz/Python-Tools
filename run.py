@@ -20,7 +20,7 @@ def run():
     for index, folder_path in enumerate(folder_list):
         base_url = 'https://github.com/syenlxyz/Python-Tools/tree/main'
         target_url = '/'.join([base_url, folder_path.name])
-        lines.append(f'{index + 1}. {folder_path.name}')
+        lines.append(f'{index + 1}. **[{folder_path.name}]({target_url})**')
         
         file_list = []
         path_list = list(folder_path.iterdir())
