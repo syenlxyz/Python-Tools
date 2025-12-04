@@ -1,6 +1,5 @@
 from alive_progress import alive_it
 from datetime import datetime
-from mutagen import File
 from pathlib import Path
 from send2trash import send2trash
 import re
