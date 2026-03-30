@@ -1,0 +1,17 @@
+Command Syntax: yt-dlp.exe --cookies-from-browser {browser} --js-runtimes {runtime} --merge-output-format {format} {url}
+Tested Command: yt-dlp.exe --cookies-from-browser firefox --js-runtimes node --merge-output-format mp4 https://www.youtube.com/watch?v=6o262bSdFAg
+
+Supported browsers are: brave, chrome, chromium, edge, firefox, opera, safari, vivaldi, whale
+Tested browsers: firefox
+
+Supported format: mp4 and others
+Tested format: mp4
+
+Supported content: youtube video, youtube shorts and others
+Tested content: YouTube Video, YouTube Short
+
+To-Do List
+1. Test other browsers
+2. Test other formats
+3. Test other contents
+4. Learn how to set output location
