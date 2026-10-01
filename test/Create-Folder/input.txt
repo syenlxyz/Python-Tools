@@ -1,0 +1,22 @@
+1-1 Meeting
+1-2 Secretarial
+1-3 Land & Building
+1-4 Research & Development
+2-1 Accounting
+2-2 Bank
+2-3 Customer
+2-4 Supplier
+2-5 Claim & Payment
+2-6 Tax
+3-1 Oil Palm
+3-2 Swiftlet
+3-3 Work Program
+3-4 Inventory Control
+4-1 Staff
+4-2 Worker
+4-3 Deduction
+4-4 Welfare
+5-1 Certification
+5-2 License & Permit
+5-3 Motor Vehicle
+5-4 Utility
