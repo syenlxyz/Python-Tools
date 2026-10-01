@@ -1,0 +1,9 @@
+prefix,password,company_code,company_name,account_no,bank_code,bank_name,bank_email
+1500010331,E#199801002549,ERM,Erumas Sdn Bhd,100750010015955,ABMB,Alliance Bank Malaysia Berhad,e-statement@alliancebank.e-statement.com.my
+2500029697,O#199901006813,OCM,Ocamat Sdn Bhd,100750010034721,ABMB,Alliance Bank Malaysia Berhad,e-statement@alliancebank.e-statement.com.my
+3000090078,T#199701035240,TJ,Talu Jadi Sdn Bhd,100750010018277,ABMB,Alliance Bank Malaysia Berhad,e-statement@alliancebank.e-statement.com.my
+3700032130,T#201101026242,TJP,Ocamat Plantations Sdn Bhd,600700013002795,ABMB,Alliance Bank Malaysia Berhad,e-statement@alliancebank.e-statement.com.my
+ca_con_3712,675W980305,ERM,Erumas Sdn Bhd,21005500003712,RHB,RHB Bank Berhad,rhb@stmts.rhbgroup.com
+ca_con_5542,740W971021,TJ,Talu Jadi Sdn Bhd,21005500055542,RHB,RHB Bank Berhad,rhb@stmts.rhbgroup.com
+ca_con_7600,713X990422,OCM,Ocamat Sdn Bhd,21005500057600,RHB,RHB Bank Berhad,rhb@stmts.rhbgroup.com
+ca_con_9390,378X110726,TJP,Talu Jadi Plantations Sdn Bhd,21005500089390,RHB,RHB Bank Berhad,rhb@stmts.rhbgroup.com
