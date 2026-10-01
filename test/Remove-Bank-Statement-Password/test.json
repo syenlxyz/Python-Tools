@@ -1,0 +1,82 @@
+[
+  {
+    "prefix":"1500010331",
+    "password":"E#199801002549",
+    "company_code":"ERM",
+    "company_name":"Erumas Sdn Bhd",
+    "account_no":100750010015955,
+    "bank_code":"ABMB",
+    "bank_name":"Alliance Bank Malaysia Berhad",
+    "bank_email":"e-statement@alliancebank.e-statement.com.my"
+  },
+  {
+    "prefix":"2500029697",
+    "password":"O#199901006813",
+    "company_code":"OCM",
+    "company_name":"Ocamat Sdn Bhd",
+    "account_no":100750010034721,
+    "bank_code":"ABMB",
+    "bank_name":"Alliance Bank Malaysia Berhad",
+    "bank_email":"e-statement@alliancebank.e-statement.com.my"
+  },
+  {
+    "prefix":"3000090078",
+    "password":"T#199701035240",
+    "company_code":"TJ",
+    "company_name":"Talu Jadi Sdn Bhd",
+    "account_no":100750010018277,
+    "bank_code":"ABMB",
+    "bank_name":"Alliance Bank Malaysia Berhad",
+    "bank_email":"e-statement@alliancebank.e-statement.com.my"
+  },
+  {
+    "prefix":"3700032130",
+    "password":"T#201101026242",
+    "company_code":"TJP",
+    "company_name":"Ocamat Plantations Sdn Bhd",
+    "account_no":600700013002795,
+    "bank_code":"ABMB",
+    "bank_name":"Alliance Bank Malaysia Berhad",
+    "bank_email":"e-statement@alliancebank.e-statement.com.my"
+  },
+  {
+    "prefix":"ca_con_3712",
+    "password":"675W980305",
+    "company_code":"ERM",
+    "company_name":"Erumas Sdn Bhd",
+    "account_no":21005500003712,
+    "bank_code":"RHB",
+    "bank_name":"RHB Bank Berhad",
+    "bank_email":"rhb@stmts.rhbgroup.com"
+  },
+  {
+    "prefix":"ca_con_5542",
+    "password":"740W971021",
+    "company_code":"TJ",
+    "company_name":"Talu Jadi Sdn Bhd",
+    "account_no":21005500055542,
+    "bank_code":"RHB",
+    "bank_name":"RHB Bank Berhad",
+    "bank_email":"rhb@stmts.rhbgroup.com"
+  },
+  {
+    "prefix":"ca_con_7600",
+    "password":"713X990422",
+    "company_code":"OCM",
+    "company_name":"Ocamat Sdn Bhd",
+    "account_no":21005500057600,
+    "bank_code":"RHB",
+    "bank_name":"RHB Bank Berhad",
+    "bank_email":"rhb@stmts.rhbgroup.com"
+  },
+  {
+    "prefix":"ca_con_9390",
+    "password":"378X110726",
+    "company_code":"TJP",
+    "company_name":"Talu Jadi Plantations Sdn Bhd",
+    "account_no":21005500089390,
+    "bank_code":"RHB",
+    "bank_name":"RHB Bank Berhad",
+    "bank_email":"rhb@stmts.rhbgroup.com"
+  }
+]
