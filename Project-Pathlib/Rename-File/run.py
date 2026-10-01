@@ -37,8 +37,8 @@ def run():
         **options
     )
     
-    old = ''
-    new = ''
+    old = '.CHS.1080P'
+    new = '.1080p.x264.AAC.zh-CN'
     for file_path in results:
         results.text(f'Processing: {file_path.name}')
         target_path = file_path.parent / file_path.name.replace(old, new)
