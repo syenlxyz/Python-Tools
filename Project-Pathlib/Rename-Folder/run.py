@@ -37,8 +37,8 @@ def run():
         **options
     )
     
-    old = '5C'
-    new = '5C0'
+    old = '_'
+    new = ' '
     for folder_path in results:
         results.text(f'Processing: {folder_path.name}')
         target_path = folder_path.parent / folder_path.name.replace(old, new)
