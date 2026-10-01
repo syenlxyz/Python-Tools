@@ -26,7 +26,7 @@ def run():
     
     file_list = []
     path_list = list(input_path.glob('**/*'))
-    suffix_list = ['.7z', '.zip']
+    suffix_list = ['.7z', '.zip', '.rar']
     for path in path_list:
         if path.suffix in suffix_list:
             file_list.append(path)
